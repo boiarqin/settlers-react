@@ -1,0 +1,84 @@
+.desert .hexagon {
+  background-image: url(../images/hex-desert.jpg); }
+
+.field .hexagon {
+  background-image: url(../images/hex-field.jpg); }
+
+.forest .hexagon {
+  background-image: url(../images/hex-forest.jpg); }
+
+.hill .hexagon {
+  background-image: url(../images/hex-hill.jpg); }
+
+.mountain .hexagon {
+  background-image: url(../images/hex-mountain.jpg); }
+
+.pasture .hexagon {
+  background-image: url(../images/hex-pasture.jpg); }
+
+.hexagon {
+  position: relative;
+  width: 110px;
+  height: 63.51px;
+  margin: 31.75px 0;
+  background-image: url(http://csshexagon.com/img/meow.jpg);
+  background-size: auto 115.4701px;
+  background-position: center;
+  border-left: solid 5px #999;
+  border-right: solid 5px #999; }
+
+.hexTop,
+.hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 77.78px;
+  height: 77.78px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 11.11px; }
+
+/*counter transform the bg image on the caps*/
+.hexTop:after,
+.hexBottom:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100.0000px;
+  height: 57.73502691896258px;
+  -webkit-transform: rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -ms-transform: rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  transform: rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit; }
+
+.hexTop {
+  top: -38.8909px;
+  border-top: solid 7.0711px #999;
+  border-right: solid 7.0711px #999; }
+
+.hexTop:after {
+  background-position: center top; }
+
+.hexBottom {
+  bottom: -38.8909px;
+  border-bottom: solid 7.0711px #999;
+  border-left: solid 7.0711px #999; }
+
+.hexBottom:after {
+  background-position: center bottom; }
+
+.hexagon:after {
+  content: "";
+  position: absolute;
+  top: 2.8868px;
+  left: 0;
+  width: 100.0000px;
+  height: 57.7350px;
+  z-index: 2;
+  background: inherit; }

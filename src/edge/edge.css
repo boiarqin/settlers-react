@@ -1,0 +1,36 @@
+.edge {
+  position: absolute;
+  height: 0px;
+  width: 67.73672;
+  border: 5px solid red;
+  transform-origin: top left; }
+
+.edge-0-1 {
+  top: 28.86836;
+  left: 110px;
+  transform: rotate(-30deg); }
+
+.edge-1-2 {
+  top: 0;
+  left: 165px;
+  transform: rotate(30deg); }
+
+.edge-0-8 {
+  top: 28.86836;
+  left: 110px;
+  transform: rotate(90deg); }
+
+.edge-2-3 {
+  top: 28.86836;
+  left: 220px;
+  transform: rotate(-30deg); }
+
+.edge-3-4 {
+  top: 0;
+  left: 275px;
+  transform: rotate(30deg); }
+
+.edge-2-9 {
+  top: 28.86836;
+  left: 220px;
+  transform: rotate(90deg); }

@@ -1,0 +1,51 @@
+@import '../styles/variables.scss';
+
+@mixin edgeRow1($index) {
+    top: 0;
+  left: $fullHexWidth * ($index + 1.5);
+}
+@mixin edgeRow2($index) {
+  top: $edgeLength/2;
+  left: $fullHexWidth * ($index + 1);
+}
+
+@mixin edgeNeg30(){
+  transform: rotate(-30deg);
+}
+@mixin edge90(){
+  transform: rotate(90deg);
+}
+@mixin edge30(){
+  transform: rotate(30deg);
+}
+.edge {
+  position: absolute;
+  height: 0px;
+  width: $edgeLength + 10;
+  border: 5px solid red;
+  transform-origin: top left;
+}
+.edge-0-1 {
+  @include edgeRow2(0);
+  @include edgeNeg30();
+}
+.edge-1-2 {
+   @include edgeRow1(0);
+  @include edge30();
+}
+.edge-0-8 {
+     @include edgeRow2(0);
+@include edge90();
+}
+.edge-2-3 {
+  @include edgeRow2(1);
+  @include edgeNeg30();
+}
+.edge-3-4 {
+  @include edgeRow1(1);
+  @include edge30();
+}
+.edge-2-9 {
+  @include edgeRow2(1);
+  @include edge90();
+}
