@@ -1,0 +1,92 @@
+.hexagon {
+  display: inline-block;
+  position: relative;
+  width: 180px; 
+  height: 103.92px;
+  margin: 51.96px 0;
+  background-image: url(http://csshexagon.com/img/meow.jpg);
+  background-size: auto 196.2991px;
+  background-position: center;
+  border-left: solid 5px #333333;
+  border-right: solid 5px #333333;
+}
+
+.hexTop,
+.hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 127.28px;
+  height: 127.28px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 21.36px;
+}
+
+/*counter transform the bg image on the caps*/
+.hexTop:after,
+.hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 170.0000px;
+  height: 98.14954576223639px;
+  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-49.0748px);
+  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-49.0748px);
+  transform:          rotate(45deg) scaleY(1.7321) translateY(-49.0748px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+}
+
+.hexTop {
+  top: -63.6396px;
+  border-top: solid 7.0711px #333333;
+  border-right: solid 7.0711px #333333;
+}
+
+.hexTop:after {
+  background-position: center top;
+}
+
+.hexBottom {
+  bottom: -63.6396px;
+  border-bottom: solid 7.0711px #333333;
+  border-left: solid 7.0711px #333333;
+}
+
+.hexBottom:after {
+  background-position: center bottom;
+}
+
+.hexagon:after {
+  content: "";
+  position: absolute;
+  top: 2.8868px;
+  left: 0;
+  width: 170.0000px;
+  height: 98.1495px;
+  z-index: 2;
+  background: inherit;
+}
+
+.hex-mountain {
+  background-image: url('../../assets/hex-mountain.jpg');
+}
+.hex-pasture {
+  background-image: url('../../assets/hex-pasture.jpg');
+}
+.hex-forest {
+  background-image: url('../../assets/hex-forest.jpg');
+}
+.hex-hill {
+  background-image: url('../../assets/hex-hill.jpg');
+}
+.hex-field {
+  background-image: url('../../assets/hex-field.jpg');
+}
+.hex-desert {
+  background-image: url('../../assets/hex-desert.jpg');
+}
