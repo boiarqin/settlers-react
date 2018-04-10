@@ -1,0 +1,20 @@
+@mixin hexRow1($index) {
+top: 0;
+left: $fullHexWidth * ($index + 1);
+}
+@mixin hexRow2($index) {
+top: $fullHexHeight * .75;
+left: $fullHexWidth * ($index + .5);
+}
+@mixin hexRow3($index) {
+top: ($fullHexHeight * .75) * 2;
+left: $fullHexWidth * ($index);
+}
+@mixin hexRow4($index) {
+top: ($fullHexHeight * .75) * 3;
+left: $fullHexWidth * ($index + .5);
+}
+@mixin hexRow5($index) {
+top: ($fullHexHeight * .75) * 4;
+left: $fullHexWidth * ($index + 1);
+}

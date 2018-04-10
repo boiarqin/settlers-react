@@ -1,0 +1,71 @@
+@import '../styles/variables.scss';
+
+
+
+.hex {
+    position: absolute;
+    //border: 1px solid blue;
+    width: $fullHexWidth;
+    height: $fullHexHeight;
+  }
+  .hex-0 {
+    @include hexRow1(0);
+  }
+  .hex-1 {
+    @include hexRow1(1);
+  }
+  .hex-2 {
+    @include hexRow1(2);
+  }
+  //ROW 2
+  .hex-3 {
+    @include hexRow2(0);
+  }
+  .hex-4 {
+    @include hexRow2(1);
+  }
+  .hex-5 {
+    @include hexRow2(2);
+  }
+  .hex-6 {
+    @include hexRow2(3);
+  }
+  //ROW 3
+  .hex-7 {
+    @include hexRow3(0);
+  }
+  .hex-8 {
+    @include hexRow3(1);
+  }
+  .hex-9 {
+    @include hexRow3(2);
+  }
+  .hex-10 {
+    @include hexRow3(3);
+  }
+  .hex-11 {
+    @include hexRow3(4);
+  }
+  //ROW 4
+  .hex-12 {
+    @include hexRow4(0);
+  }
+  .hex-13 {
+    @include hexRow4(1);
+  }
+  .hex-14 {
+    @include hexRow4(2);
+  }
+  .hex-15 {
+    @include hexRow4(3);
+  }
+  //ROW 5
+  .hex-16 {
+    @include hexRow5(0);
+  }
+  .hex-17 {
+    @include hexRow5(1);
+  }
+  .hex-18 {
+    @include hexRow5(2);
+  }

@@ -1,0 +1,49 @@
+
+@mixin vtxRow1($index) {
+    top: 0;
+    left: $fullHexWidth * ($index + 1.5);
+  }
+  @mixin vtxRow2($index) {
+    top: $edgeLength/2;
+    left: $fullHexWidth * ($index + 1);
+  }
+  @mixin vtxRow3($index) {
+    top: $fullHexHeight * .75;
+    left: $fullHexWidth * ($index + 1);
+  }
+  @mixin vtxRow4($index) {
+    top: $fullHexHeight;
+    left: $fullHexWidth * ($index + .5);
+  }
+  @mixin vtxRow5($index) {
+    top: $fullHexHeight * .75 * 2;
+    left: $fullHexWidth * ($index + .5);
+  }
+  @mixin vtxRow6($index) {
+    top: $fullHexHeight * .75 * 2 + $edgeLength/2;
+    left: $fullHexWidth * ($index);
+  }
+  @mixin vtxRow7($index) {
+    top: $fullHexHeight * .75 * 3;
+    left: $fullHexWidth * ($index);
+  }
+  @mixin vtxRow8($index) {
+    top: $fullHexHeight * .75 * 3 + $edgeLength/2;
+    left: $fullHexWidth * ($index + .5);
+  }
+  @mixin vtxRow9($index) {
+    top: $fullHexHeight * .75 * 4;
+    left: $fullHexWidth * ($index + .5);
+  }
+  @mixin vtxRow10($index) {
+    top: $fullHexHeight * .75 * 4 + $edgeLength/2;
+    left: $fullHexWidth * ($index + 1);
+  }
+  @mixin vtxRow11($index) {
+    top: $fullHexHeight * .75 * 5;
+    left: $fullHexWidth * ($index + 1);
+  }
+  @mixin vtxRow12($index) {
+    top: $fullHexHeight * .75 * 5 + $edgeLength/2;
+    left: $fullHexWidth * ($index + 1.5);
+  }

@@ -1,0 +1,196 @@
+@import '../styles/variables.scss';
+
+.vtx {
+    position: absolute;
+    transform: translate(-5px, -5px);
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background-color: black;
+}
+
+.vtx.town {
+
+}
+
+.vtx.city {
+    
+}
+
+.vtx.port {
+    
+}
+
+//Group 1
+.vtx-0 {
+    @include vtxRow2(0);
+}
+.vtx-1 {
+    @include vtxRow1(0);
+}
+.vtx-2 {
+    @include vtxRow2(1);
+}
+.vtx-3 {
+    @include vtxRow1(1);
+}
+.vtx-4 {
+    @include vtxRow2(2);
+}
+.vtx-5 {
+    @include vtxRow1(2);
+}
+.vtx-6 {
+    @include vtxRow2(3);
+}
+
+//Group 2
+.vtx-7 {
+    @include vtxRow4(0);
+}
+.vtx-8 {
+    @include vtxRow3(0);
+}
+.vtx-9 {
+    @include vtxRow4(1);
+}
+.vtx-10 {
+    @include vtxRow3(1);
+}
+.vtx-11 {
+    @include vtxRow4(2);
+}
+.vtx-12 {
+    @include vtxRow3(2);
+}
+.vtx-13 {
+    @include vtxRow4(3);
+}
+.vtx-14 {
+    @include vtxRow3(3);
+}
+.vtx-15 {
+    @include vtxRow4(4);
+}
+
+//Group 3
+.vtx-16 {
+    @include vtxRow6(0);
+}
+.vtx-17 {
+    @include vtxRow5(0);
+}
+.vtx-18 {
+    @include vtxRow6(1);
+}
+.vtx-19 {
+    @include vtxRow5(1);
+}
+.vtx-20 {
+    @include vtxRow6(2);
+}
+.vtx-21 {
+    @include vtxRow5(2);
+}
+.vtx-22 {
+    @include vtxRow6(3);
+}
+.vtx-23 {
+    @include vtxRow5(3);
+}
+.vtx-24 {
+    @include vtxRow6(4);
+}
+.vtx-25 {
+    @include vtxRow5(4);
+}
+.vtx-26 {
+    @include vtxRow6(5);
+}
+
+//Group 4
+.vtx-27 {
+    @include vtxRow7(0);
+}
+.vtx-28 {
+    @include vtxRow8(0);
+}
+.vtx-29 {
+    @include vtxRow7(1);
+}
+.vtx-30 {
+    @include vtxRow8(1);
+}
+.vtx-31 {
+    @include vtxRow7(2);
+}
+.vtx-32 {
+    @include vtxRow8(2);
+}
+.vtx-33 {
+    @include vtxRow7(3);
+}
+.vtx-34 {
+    @include vtxRow8(3);
+}
+.vtx-35 {
+    @include vtxRow7(4);
+}
+.vtx-36 {
+    @include vtxRow8(4);
+}
+.vtx-37 {
+    @include vtxRow7(5);
+}
+
+//Group 5
+.vtx-38 {
+    @include vtxRow9(0);
+}
+.vtx-39 {
+    @include vtxRow10(0);
+}
+.vtx-40 {
+    @include vtxRow9(1);
+}
+.vtx-41 {
+    @include vtxRow10(1);
+}
+.vtx-42 {
+    @include vtxRow9(2);
+}
+.vtx-43 {
+    @include vtxRow10(2);
+}
+.vtx-44 {
+    @include vtxRow9(3);
+}
+.vtx-45 {
+    @include vtxRow10(3);
+}
+.vtx-46 {
+    @include vtxRow9(4);
+}
+
+//Group 6
+.vtx-47 {
+    @include vtxRow11(0);
+}
+.vtx-48 {
+    @include vtxRow12(0);
+}
+.vtx-49 {
+    @include vtxRow11(1);
+}
+.vtx-50 {
+    @include vtxRow12(1);
+}
+.vtx-51 {
+    @include vtxRow11(2);
+}
+.vtx-52 {
+    @include vtxRow12(2);
+}
+.vtx-53 {
+    @include vtxRow11(3);
+}

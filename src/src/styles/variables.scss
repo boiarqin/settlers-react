@@ -1,0 +1,10 @@
+$sqrt3: 1.732;
+$edgeWidth: 5px;
+$edgeLength: 50px*2/$sqrt3;
+
+$fullHexWidth: $edgeLength*$sqrt3 + $edgeWidth*2;
+$fullHexHeight: $edgeLength*2 + $edgeWidth*2;
+
+@import '_hex-mixins';
+@import '_vertex-mixins';
+@import '_edge-mixins';

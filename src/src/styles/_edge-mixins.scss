@@ -1,0 +1,9 @@
+@mixin edgeNeg30(){
+    transform: rotate(-30deg);
+  }
+  @mixin edge90(){
+    transform: rotate(90deg);
+  }
+  @mixin edge30(){
+    transform: rotate(30deg);
+  }

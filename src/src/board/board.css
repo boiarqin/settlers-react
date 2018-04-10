@@ -1,0 +1,22 @@
+.board {
+  border: 1px solid black;
+  position: relative;
+  height: 501.89376px;
+  width: 550px;
+  margin: 0 auto; }
+
+.hex-layer, .edge-layer, .vertex-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.hex-layer {
+  z-index: 1; }
+
+.edge-layer {
+  z-index: 2; }
+
+.vertex-layer {
+  z-index: 3; }
