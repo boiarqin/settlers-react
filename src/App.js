@@ -5,16 +5,26 @@ import './App.css';
 
 //data
 import hexList from './constants/hexList';
+import {playerScoreboard, playerColors } from './constants/players';
 
 class App extends Component {
   render() {
+    const scoreboard = playerColors.map((color, index) => {
+      return Object.assign({}, playerScoreboard,
+        {
+          playerColor: color,
+          playerOrder: index
+        }
+      );
+    });
+    
     return (
       <div className="App">
         <h1 className="App-title">Settlers of Catan</h1>
         <p className="App-intro">
         </p>
         <Board hexList={hexList}></Board>
-        <Scores></Scores>
+        <Scores scoreboard={scoreboard}></Scores>
       </div>
       
     );
