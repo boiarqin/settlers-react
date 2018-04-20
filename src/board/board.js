@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Hexagon from '../hexagon/hexagon';
+import Edge from '../edge/edge';
+import Vertex from '../vertex/vertex';
 import './board.css'
 
 class Board extends Component {
@@ -15,10 +17,37 @@ class Board extends Component {
                 </Hexagon>
             );
         });
+        const edges = this.props.edgeList.map((edge, i) => {
+            return (
+                <Edge
+                    key={i}
+                    start={edge[0]}
+                    end={edge[1]}
+                >
+                </Edge>
+            );
+        });
+        const vertices = this.props.vertexList.map((vtx, i) => {
+            return (
+                <Vertex
+                    key={i}
+                    index={i}
+                    type={vtx.type}
+                >
+                </Vertex>
+            );
+        });
         return (
             <div className="board">
-            {hexTiles}
-            TODO: show game board
+                <div className="hex-layer">
+                    {hexTiles}
+                </div>
+                <div className="edge-layer">
+                    {edges}
+                </div>
+                <div className="vertex-layer">
+                    {vertices}
+                </div>
             </div>
         );
     }

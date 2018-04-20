@@ -5,6 +5,8 @@ import './App.css';
 
 //data
 import hexList from './constants/hexList';
+import edgeList from './constants/edgeList';
+import numVertices from './constants/vertices';
 import {playerScoreboard, playerColors } from './constants/players';
 
 class App extends Component {
@@ -17,14 +19,26 @@ class App extends Component {
         }
       );
     });
+
+    let vertexList = [];
+    for (var x = 0; x < numVertices; x++){
+      vertexList.push({type: 'town'});
+    };
     
     return (
       <div className="App">
         <h1 className="App-title">Settlers of Catan</h1>
         <p className="App-intro">
         </p>
-        <Board hexList={hexList}></Board>
+        <Board
+          hexList={hexList}
+          edgeList={edgeList}
+          vertexList={vertexList}
+        >
+        </Board>
         <Scores scoreboard={scoreboard}></Scores>
+
+        <span>SVGs from http://game-icons.net/games/catan.html</span>
       </div>
       
     );

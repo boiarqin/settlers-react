@@ -1,6 +1,13 @@
 import React from 'react';
 import {calculateVP, countPlayedKnights} from '../utils/utils';
 import './scores.css';
+/*
+import brickIcon from '../images/icons/brick-pile.svg';
+import wheatIcon from '../images/icons/wheat.svg';
+import oreIcon from '../images/icons/stone-pile.svg';
+import sheepIcon from '../images/icons/sheep.svg';
+import woodIcon from '../images/icons/wood-pile.svg';
+*/
 
 function SingleScore(props) {
     return (
