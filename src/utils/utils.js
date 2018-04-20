@@ -1,3 +1,5 @@
+import { cursorTo } from "readline";
+
 function calculateVP(score) {
     return score.towns.length
         + 2*score.cities.length
@@ -26,28 +28,62 @@ function longestRoadLength(color, playerRoads, allTowns){
     
 }
 
-function getConnectingRoad(initRoad, roads, allTowns){
+function markRoadSet(initRoad, playerRoads, allTowns){
     const start = initRoad.edge[0];
     const end = initRoad.edge[1];
     const color = initRoad.color;
+    const currentSet = initRoad.set;
     const connectingRoads = [];
 
     // is this road blocked by another town?
     const startBlocked = allTowns.filter(t => t.vertex === start && t.color !== color);
     const endBlocked = allTowns.filter(t => t.vertex === end && t.color !== color);
+    let adjacentRoads = [];
 
     if (!startBlocked) {
-        roads.filter(r => r.edge[0] === start || r.edge[1] === end);
-        connectingRoads.concat()
-        return getConnectingRoad()
+        // get adjacent roads that aren't part of any set
+        const adjacentStartRoads = playerRoads.filter(r => r.set === null && (r.edge[0] === start || r.edge[1] === start));
+        adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
     }
-
     if (!endBlocked) {
-        roads.filter(r => r.edge[0] === start || r.edge[1] === end);
-        return getConnectingRoad();
+        // get adjacent roads that aren't part of any set
+        const adjacentEndRoads = playerRoads.filter(r => r.set === null && (r.edge[0] === end || r.edge[1] === end));
+        adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
     }
 
-    return [];
+    //mark all adjacent start roads as part of currentSet
+    adjacentRoads.forEach(r => r.set = currentSet);
+
+    //repeat check for each adjacentRoad
+    adjacentRoads.forEach(r => {
+        playerRoads = markRoadSet(r, playerRoads, allTowns);
+    });
+
+    //return allRoads
+    return playerRoads;
 }
+
+function divideIntoSets(allRoads, allTowns){
+    // deep copy allroads; add set property to each
+    allRoads.forEach(r => r.set = null);
+    // set counter
+    let currentSet = 0;
+    // while there is a road that is not part of a set
+    while(allRoads.filter(r => r.set === null).length > 0){
+        // get first unmarked road
+        currentRoad = allRoads.find(r=> r.set === null);
+        currentRoad.set = currentSet;
+
+        allRoads = markRoadSet(currentRoad, allRoads, allTowns);
+        
+        // increment currentSet
+        currentSet = currentSet + 1;
+    // end while
+    }
+
+    // all roads now belong to a set
+    return allRoads;
+}
+
 
 export {calculateVP, countPlayedKnights};
