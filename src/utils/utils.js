@@ -1,4 +1,3 @@
-import { cursorTo } from "readline";
 
 function calculateVP(score) {
     return score.towns.length
@@ -36,8 +35,8 @@ function markRoadSet(initRoad, playerRoads, allTowns){
     const connectingRoads = [];
 
     // is this road blocked by another town?
-    const startBlocked = allTowns.filter(t => t.vertex === start && t.color !== color);
-    const endBlocked = allTowns.filter(t => t.vertex === end && t.color !== color);
+    const startBlocked = typeof allTowns.find(t => t.vertex === start && t.color !== color) !== "undefined";
+    const endBlocked = typeof allTowns.find(t => t.vertex === end && t.color !== color) !== "undefined";
     let adjacentRoads = [];
 
     if (!startBlocked) {
@@ -63,11 +62,16 @@ function markRoadSet(initRoad, playerRoads, allTowns){
     return playerRoads;
 }
 
+/* PREREQUISITE:
+    -allRoads contains unique roads of all the same color 
+    -allTowns contains unique towns
+*/
 function divideIntoSets(allRoads, allTowns){
     // deep copy allroads; add set property to each
     allRoads.forEach(r => r.set = null);
     // set counter
     let currentSet = 0;
+    let currentRoad = null;
     // while there is a road that is not part of a set
     while(allRoads.filter(r => r.set === null).length > 0){
         // get first unmarked road
@@ -86,4 +90,4 @@ function divideIntoSets(allRoads, allTowns){
 }
 
 
-export {calculateVP, countPlayedKnights};
+export {calculateVP, countPlayedKnights, markRoadSet, divideIntoSets};
