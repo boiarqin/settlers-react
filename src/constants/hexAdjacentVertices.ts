@@ -1,4 +1,6 @@
-const hexAdjacentVertices = [
+import {Vertex} from '../types/types';
+
+export const hexAdjacentVertices : [Vertex, Vertex, Vertex, Vertex, Vertex, Vertex][] = [
     [0, 1, 2, 8, 9, 10],
     [2, 3, 4, 10, 11, 12],
     [4, 5, 6, 12, 13, 14],
@@ -19,5 +21,3 @@ const hexAdjacentVertices = [
     [41, 42, 43, 49, 50, 51],
     [43, 44, 45, 51, 52, 53]
 ];
-
-export default hexAdjacentVertices;

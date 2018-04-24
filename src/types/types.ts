@@ -1,46 +1,78 @@
-type Vertex = number;
+export type Vertex = number;
 
-type Edge = [Vertex, Vertex];
+export type Edge = [Vertex, Vertex];
 
-type Color = 'red' | 'orange' | 'green' | 'blue';
+export type Color = 'red' | 'orange' | 'green' | 'blue';
 
-type Terrain = 'forest' | 'pasture' | 'hill' | 'mountain' | 'field' | 'desert';
+export type Terrain = 'forest' | 'pasture' | 'hill' | 'mountain' | 'field' | 'desert';
 
-type Resource = 'bricks' | 'wheat' | 'ore' | 'sheep' | 'lumber';
+export type Resource = 'bricks' | 'wheat' | 'ore' | 'sheep' | 'lumber';
 
-interface IHexagon {
+export interface IHexagon {
     terrain: Terrain;
     dieRoll: number;
 };
 
-interface ITown {
+export interface ITown {
     vertex: Vertex;
     color: Color;
     isCity: boolean;
     isPort: boolean;
 };
 
-interface IRoad {
+export interface IRoad {
     edge: Edge;
     color: Color;
 }
 
-interface ICard {
+export interface ICard {
+    name: string;
     vp: number;
     isKnight: boolean;
+    color?: Color;
+}
+
+export interface IPlayerResources {
+    playerColor: Color;
+    bricks: number;
+    wheat: number;
+    ore: number;
+    sheep: number;
+    lumber: number;
 }
 
 export interface ICatanState {
     allHexagons: IHexagon[];
     // allVertices:
-    totalHexagons: number;
+    //totalHexagons: number;
+    hexAdjacentVertices: [Vertex, Vertex, Vertex, Vertex, Vertex, Vertex][];
     totalVertices: number;
     allEdges: Edge[];
-    numPlayers: number;
-    playerColors: Color[];
-    townsCities: ITown[];
+    
+    towns: ITown[];
     roads: IRoad[];
-    cards?: ICard[];
-    players?: Resource[];
+    cards: ICard[];
+    
+    playerColors: Color[];
+    playerResources: {
+        [K in Color]?: IPlayerResources
+    };
+    playerWithLargestArmy: Color | null;
+    playerWithLongestRoad: Color | null;
+};
+
+export interface IPlayerScore extends IPlayerResources {
+    playerName?: string;
+    /*playerColor: Color;
+    bricks: number;
+    wheat: number;
+    ore: number;
+    sheep: number;
+    lumber: number; */
+    cards: ICard[];
+    roads: IRoad[];
+    towns: ITown[];
+    hasLargestArmy: boolean;
+    hasLongestRoad: boolean;
 };
 

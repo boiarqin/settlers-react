@@ -1,4 +1,5 @@
-const playerScoreboard = {
+import {Color} from '../types/types';
+/* const playerScoreboard = {
    playerName: '',
    playerColor: '',
    playerOrder: 0,
@@ -14,7 +15,6 @@ const playerScoreboard = {
    hasLargestArmy: false,
    hasLongestRoad: false
 };
+*/
 
-const playerColors = ['Red', 'Orange', 'Green', 'Blue'];
-
-export {playerScoreboard, playerColors};
+export const playerColors : Color[] = ['red', 'orange', 'green', 'blue'];

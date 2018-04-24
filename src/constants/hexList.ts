@@ -1,4 +1,6 @@
-const hexList = [
+import {IHexagon} from '../types/types';
+
+export const hexList : IHexagon[] = [
 	//ROW 1
 	{
 		terrain: 'forest',
@@ -81,5 +83,3 @@ const hexList = [
 		dieRoll: 6
 	}
 ];
-
-export default hexList;
