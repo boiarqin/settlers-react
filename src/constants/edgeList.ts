@@ -1,6 +1,6 @@
-import { Edge } from '../types';
+import { IEdge } from '../types';
 
-export const edgeList : Edge[] = [
+export const edgeList : IEdge[] = [
     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6],
     [0, 8], [2, 10], [4, 12], [6, 14],
     [7, 8], [8, 9], [9,10], [10, 11], [11, 12], [12,13], [13, 14], [14, 15],

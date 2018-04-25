@@ -1,6 +1,6 @@
-import {Vertex} from '../types';
+import {IVertex} from '../types';
 
-export const hexAdjacentVertices : Array<[Vertex, Vertex, Vertex, Vertex, Vertex, Vertex]> = [
+export const hexAdjacentVertices : Array<[IVertex, IVertex, IVertex, IVertex, IVertex, IVertex]> = [
     [0, 1, 2, 8, 9, 10],
     [2, 3, 4, 10, 11, 12],
     [4, 5, 6, 12, 13, 14],

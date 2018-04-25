@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import {calculateVP, countPlayedKnights, getPlayerScores} from '../../utils/scoring';
 import './scores.css';
@@ -10,15 +10,28 @@ import sheepIcon from '../images/icons/sheep.svg';
 import woodIcon from '../images/icons/wood-pile.svg';
 */
 
-const mapStateToProps = (state, ownProps) => ({
+import { ICatanState, IPlayerScore } from '../../types';
+
+interface IScoresProps {
+    scoreboard: IPlayerScore[];
+};
+
+interface ISingleScoresProps {
+    score: IPlayerScore;
+};
+
+const mapStateToProps = (state: ICatanState, ownProps: IScoresProps):IScoresProps => ({
     scoreboard: getPlayerScores(state)
 });
 
-function SingleScore(props) {
+function SingleScore(props: ISingleScoresProps) {
+    const totalVP = calculateVP(props.score);
+    const playedKnights = countPlayedKnights(props.score.cards);
+
     return (
         <div className="single-score">
             <h3>Player Name ({props.score.playerColor})</h3>
-            <span>{props.totalVP} Victory Points</span>
+            <span>{totalVP} Victory Points</span>
             <h4>Resources</h4>
             <ul>
                 <li>Bricks: {props.score.bricks}</li>
@@ -26,7 +39,7 @@ function SingleScore(props) {
                 <li>Ore: {props.score.ore}</li>
                 <li>Sheep: {props.score.sheep}</li>
                 <li>Lumber: {props.score.lumber}</li>
-                <li>Knights: {props.playedKnights}</li>
+                <li>Knights: {playedKnights}</li>
             </ul>
             <h4>Trophies</h4>
             <ul>
@@ -38,20 +51,13 @@ function SingleScore(props) {
     );
 };
 
-function Scores(props) {
+function Scores(props: IScoresProps) {
     const AllPlayerScores = props.scoreboard.map(score => {
-        //calculate VP
-        const totalVP = calculateVP(score);
-        const playedKnights = countPlayedKnights(score.cards);
-        //calculate knights
         return (
             <SingleScore
                 key={score.playerColor}
                 score={score}
-                totalVP={totalVP}
-                playedKnights={playedKnights}
-            >
-            </SingleScore>
+            />
         );
     })
 
@@ -62,4 +68,4 @@ function Scores(props) {
     );
 }
 
-export default connect(mapStateToProps)(Scores);
+export default connect<IScoresProps>(mapStateToProps)(Scores);

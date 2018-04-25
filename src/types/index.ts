@@ -1,6 +1,6 @@
-export type Vertex = number;
+export type IVertex = number;
 
-export type Edge = [Vertex, Vertex];
+export type IEdge = [IVertex, IVertex];
 
 export type Color = 'red' | 'orange' | 'green' | 'blue';
 
@@ -14,14 +14,14 @@ export interface IHexagon {
 };
 
 export interface ITown {
-    vertex: Vertex;
+    vertex: IVertex;
     color: Color;
     isCity: boolean;
     isPort: boolean;
 };
 
 export interface IRoad {
-    edge: Edge;
+    edge: IEdge;
     color: Color;
 }
 
@@ -54,9 +54,9 @@ export interface ICatanState {
     allHexagons: IHexagon[];
     // allVertices:
     // totalHexagons: number;
-    hexAdjacentVertices: Array<[Vertex, Vertex, Vertex, Vertex, Vertex, Vertex]>;
+    hexAdjacentVertices: Array<[IVertex, IVertex, IVertex, IVertex, IVertex, IVertex]>;
     totalVertices: number;
-    allEdges: Edge[];
+    allEdges: IEdge[];
 
     eventList: string[],
     

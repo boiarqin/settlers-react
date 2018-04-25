@@ -1,4 +1,4 @@
-import {Color, Edge, ITradingResources, Vertex} from '../types';
+import {Color, IEdge, ITradingResources, IVertex} from '../types';
 
 /* ACTION TYPES */
 export const INITIALIZE_GAME = 'INITIALIZE_GAME';
@@ -50,21 +50,21 @@ export const stealResource = (targetPlayer: Color) => {
     }
 };
 
-export const buildRoad = (targetEdge: Edge) => {
+export const buildRoad = (targetEdge: IEdge) => {
     return {
         targetEdge,
         type: BUILD_ROAD
     };
 };
 
-export const buildTown = (targetVtx: Vertex) => {
+export const buildTown = (targetVtx: IVertex) => {
     return {
         targetVtx,
         type: BUILD_TOWN
     };
 };
 
-export const upgradeTown = (targetVtx: Vertex) => {
+export const upgradeTown = (targetVtx: IVertex) => {
     return {
         targetVtx,
         type: UPGRADE_TOWN
