@@ -44,8 +44,8 @@ export interface IPlayerResources {
 export interface ICatanState {
     allHexagons: IHexagon[];
     // allVertices:
-    //totalHexagons: number;
-    hexAdjacentVertices: [Vertex, Vertex, Vertex, Vertex, Vertex, Vertex][];
+    // totalHexagons: number;
+    hexAdjacentVertices: Array<[Vertex, Vertex, Vertex, Vertex, Vertex, Vertex]>;
     totalVertices: number;
     allEdges: Edge[];
     
@@ -63,7 +63,7 @@ export interface ICatanState {
 
 export interface IPlayerScore extends IPlayerResources {
     playerName?: string;
-    /*playerColor: Color;
+    /* playerColor: Color;
     bricks: number;
     wheat: number;
     ore: number;

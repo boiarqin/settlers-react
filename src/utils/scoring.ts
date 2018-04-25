@@ -7,25 +7,25 @@ export function initializeState() : ICatanState {
         playerColors.reduce((accm, color) => {
             accm[color] = ({
                 bricks: 0,
-                wheat: 0,
+                lumber: 0,
                 ore: 0,
                 sheep: 0,
-                lumber: 0
+                wheat: 0
             } as IPlayerResources);
             return accm;
         }, {});
     return {
-        allHexagons: hexList,
-        hexAdjacentVertices,
-        totalVertices: numVertices,
         allEdges: edgeList,
-        towns: [],
-        roads: [],
+        allHexagons: hexList,
         cards: cardList,
+        hexAdjacentVertices,
         playerColors,
-        playerResources: playerResources,
+        playerResources,
         playerWithLargestArmy: null,
-        playerWithLongestRoad: null
+        playerWithLongestRoad: null,
+        roads: [],
+        totalVertices: numVertices,
+        towns: []
     };
 }
 
@@ -43,16 +43,16 @@ function getSinglePlayerScore(state: ICatanState, color: Color): IPlayerScore{
     const hasLongestRoad = state.playerWithLongestRoad === color;
     
     return {
-        playerColor,
         bricks,
-        wheat,
-        ore,
-        sheep,
-        lumber,
-        roads,
-        towns,
         cards,
         hasLargestArmy,
-        hasLongestRoad
+        hasLongestRoad,
+        lumber,
+        ore,
+        playerColor,
+        roads,
+        sheep,
+        towns,
+        wheat
     };
 }

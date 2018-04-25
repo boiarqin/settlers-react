@@ -1,85 +1,85 @@
 import {IHexagon} from '../types/types';
 
 export const hexList : IHexagon[] = [
-	//ROW 1
+	// ROW 1
 	{
-		terrain: 'forest',
-		dieRoll: 11
+		dieRoll: 11,
+		terrain: 'forest'
 	},
 	{
-		terrain: 'pasture',
-		dieRoll: 12
+		dieRoll: 12,
+		terrain: 'pasture'
 	},
 	{
-		terrain: 'field',
-		dieRoll: 9
+		dieRoll: 9,
+		terrain: 'field'
 	},
-	//ROW 2
+	// ROW 2
 	{
-		terrain: 'hill',
-		dieRoll: 4
-	},
-	{
-		terrain: 'mountain',
-		dieRoll: 6
+		dieRoll: 4,
+		terrain: 'hill'
 	},
 	{
-		terrain: 'hill',
-		dieRoll: 5
+		dieRoll: 6,
+		terrain: 'mountain'		
 	},
 	{
-		terrain: 'pasture',
-		dieRoll: 10
-	},
-	//ROW 3
-	{
-		terrain: 'desert',
-		dieRoll: 7
+		dieRoll: 5,
+		terrain: 'hill'
 	},
 	{
-		terrain: 'forest',
-		dieRoll: 3
+		dieRoll: 10,
+		terrain: 'pasture'
+	},
+	// ROW 3
+	{
+		dieRoll: 7,
+		terrain: 'desert'
 	},
 	{
-		terrain: 'field',
-		dieRoll: 11
+		dieRoll: 3,
+		terrain: 'forest'
 	},
 	{
-		terrain: 'forest',
-		dieRoll: 4
+		dieRoll: 11,
+		terrain: 'field'
 	},
 	{
-		terrain: 'field',
-		dieRoll: 8
-	},
-	//ROW 4
-	{
-		terrain: 'hill',
-		dieRoll: 8
+		dieRoll: 4,
+		terrain: 'forest'
 	},
 	{
-		terrain: 'pasture',
-		dieRoll: 10
+		dieRoll: 8,
+		terrain: 'field'
+	},
+	// ROW 4
+	{
+		dieRoll: 8,
+		terrain: 'hill'
 	},
 	{
-		terrain: 'pasture',
-		dieRoll: 9
+		dieRoll: 10,
+		terrain: 'pasture'
 	},
 	{
-		terrain: 'mountain',
-		dieRoll: 3
-	},
-	//ROW 5
-	{
-		terrain: 'mountain',
-		dieRoll: 5
+		dieRoll: 9,
+		terrain: 'pasture'
 	},
 	{
-		terrain: 'field',
-		dieRoll: 2
+		dieRoll: 3,
+		terrain: 'mountain'
+	},
+	// ROW 5
+	{
+		dieRoll: 5,
+		terrain: 'mountain'
 	},
 	{
-		terrain: 'forest',
-		dieRoll: 6
+		dieRoll: 2,
+		terrain: 'field'
+	},
+	{
+		dieRoll: 6,
+		terrain: 'forest'
 	}
 ];
