@@ -57,6 +57,8 @@ export interface ICatanState {
     hexAdjacentVertices: Array<[Vertex, Vertex, Vertex, Vertex, Vertex, Vertex]>;
     totalVertices: number;
     allEdges: Edge[];
+
+    eventList: string[],
     
     towns: ITown[];
     roads: IRoad[];

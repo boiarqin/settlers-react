@@ -15,9 +15,38 @@ import {
     STEAL_RESOURCE,
     UPGRADE_TOWN
 } from '../actions';
-import {ICatanState} from '../types';
+import {cardList, edgeList, hexAdjacentVertices, hexList, numVertices, playerColors} from '../constants';
+import {Color, ICatanState, IPlayerResources} from '../types';
 
-const catanReducer = (state: ICatanState, action: any) => {
+const initialState : ICatanState = (() => {
+    const playerResources : {[K in Color]?: IPlayerResources} =
+        playerColors.reduce((accm, color) => {
+            accm[color] = ({
+                bricks: 0,
+                lumber: 0,
+                ore: 0,
+                sheep: 0,
+                wheat: 0
+            } as IPlayerResources);
+            return accm;
+        }, {});
+    return {
+        allEdges: edgeList,
+        allHexagons: hexList,
+        cards: cardList,
+        eventList: ['Initialized game'],
+        hexAdjacentVertices,
+        playerColors,
+        playerResources,
+        playerWithLargestArmy: null,
+        playerWithLongestRoad: null,
+        roads: [],
+        totalVertices: numVertices,
+        towns: []
+    };
+})();
+
+const catanReducer = (state: ICatanState = initialState, action: any) => {
     switch(action.type) {
         case INITIALIZE_GAME:
         case END_PLAYER_TURN:

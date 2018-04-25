@@ -1,33 +1,4 @@
-import {cardList, edgeList, hexAdjacentVertices, hexList, numVertices, playerColors} from '../constants';
-import {Color, ICard, ICatanState, IPlayerResources, IPlayerScore} from '../types';
-
-// Default to 4 players
-export function initializeState() : ICatanState {
-    const playerResources : {[K in Color]?: IPlayerResources} =
-        playerColors.reduce((accm, color) => {
-            accm[color] = ({
-                bricks: 0,
-                lumber: 0,
-                ore: 0,
-                sheep: 0,
-                wheat: 0
-            } as IPlayerResources);
-            return accm;
-        }, {});
-    return {
-        allEdges: edgeList,
-        allHexagons: hexList,
-        cards: cardList,
-        hexAdjacentVertices,
-        playerColors,
-        playerResources,
-        playerWithLargestArmy: null,
-        playerWithLongestRoad: null,
-        roads: [],
-        totalVertices: numVertices,
-        towns: []
-    };
-}
+import {Color, ICard, ICatanState, IPlayerScore} from '../types';
 
 // take in board state, return score for each player
 export function getPlayerScores(state: ICatanState) : IPlayerScore[]{

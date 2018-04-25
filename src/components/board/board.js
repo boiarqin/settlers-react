@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Hexagon from '../hexagon/hexagon';
 import Edge from '../edge/edge';
 import Vertex from '../vertex/vertex';
 import './board.css'
+
+const mapStateToProps = (state, ownProps) => ({
+    hexList: state.allHexagons,
+    edgeList: state.roads,
+    vertexList: state.towns,
+});
 
 class Board extends Component {
     render() {
@@ -53,4 +60,4 @@ class Board extends Component {
     }
 }
 
-export default Board;
+export default connect(mapStateToProps)(Board);

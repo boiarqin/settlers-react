@@ -1,5 +1,6 @@
 import React from 'react';
-import {calculateVP, countPlayedKnights} from '../../utils/scoring';
+import { connect } from 'react-redux';
+import {calculateVP, countPlayedKnights, getPlayerScores} from '../../utils/scoring';
 import './scores.css';
 /*
 import brickIcon from '../images/icons/brick-pile.svg';
@@ -8,6 +9,10 @@ import oreIcon from '../images/icons/stone-pile.svg';
 import sheepIcon from '../images/icons/sheep.svg';
 import woodIcon from '../images/icons/wood-pile.svg';
 */
+
+const mapStateToProps = (state, ownProps) => ({
+    scoreboard: getPlayerScores(state)
+});
 
 function SingleScore(props) {
     return (
@@ -57,4 +62,4 @@ function Scores(props) {
     );
 }
 
-export default Scores;
+export default connect(mapStateToProps)(Scores);
