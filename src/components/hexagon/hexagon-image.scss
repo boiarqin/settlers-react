@@ -1,22 +1,22 @@
 $hexBorderColor: #999;
 
 .desert .hexagon {
-background-image: url(../images/hex-desert.jpg);
+background-image: url(../../images/hex-desert.jpg);
 }
 .field .hexagon {
-background-image: url(../images/hex-field.jpg);
+background-image: url(../../images/hex-field.jpg);
 }
 .forest .hexagon {
-background-image: url(../images/hex-forest.jpg);
+background-image: url(../../images/hex-forest.jpg);
 }
 .hill .hexagon {
-background-image: url(../images/hex-hill.jpg);
+background-image: url(../../images/hex-hill.jpg);
 }
 .mountain .hexagon {
-background-image: url(../images/hex-mountain.jpg);
+background-image: url(../../images/hex-mountain.jpg);
 }
 .pasture .hexagon {
-background-image: url(../images/hex-pasture.jpg);
+background-image: url(../../images/hex-pasture.jpg);
 }
 
 // from http://csshexagon.com/
@@ -25,7 +25,6 @@ background-image: url(../images/hex-pasture.jpg);
   width: 110px; 
   height: 63.51px;
   margin: 31.75px 0;
-  background-image: url(http://csshexagon.com/img/meow.jpg);
   background-size: auto 115.4701px;
   background-position: center;
   border-left: solid 5px $hexBorderColor;

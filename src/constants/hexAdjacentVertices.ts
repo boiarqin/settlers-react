@@ -1,4 +1,4 @@
-import {Vertex} from '../types/types';
+import {Vertex} from '../types';
 
 export const hexAdjacentVertices : Array<[Vertex, Vertex, Vertex, Vertex, Vertex, Vertex]> = [
     [0, 1, 2, 8, 9, 10],

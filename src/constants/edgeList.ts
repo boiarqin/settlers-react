@@ -1,4 +1,4 @@
-import { Edge } from '../types/types';
+import { Edge } from '../types';
 
 export const edgeList : Edge[] = [
     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6],

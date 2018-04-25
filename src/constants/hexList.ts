@@ -1,4 +1,4 @@
-import {IHexagon} from '../types/types';
+import {IHexagon} from '../types';
 
 export const hexList : IHexagon[] = [
 	// ROW 1

@@ -1,5 +1,5 @@
 import {cardList, edgeList, hexAdjacentVertices, hexList, numVertices, playerColors} from '../constants';
-import {Color, ICatanState, IPlayerResources, IPlayerScore} from '../types/types';
+import {Color, ICard, ICatanState, IPlayerResources, IPlayerScore} from '../types';
 
 // Default to 4 players
 export function initializeState() : ICatanState {
@@ -55,4 +55,25 @@ function getSinglePlayerScore(state: ICatanState, color: Color): IPlayerScore{
         towns,
         wheat
     };
+}
+
+export function calculateVP(score: IPlayerScore): number {
+    return score.towns.reduce((townsSum, town) => {
+            if (town.isCity){
+                return townsSum + 2;
+            } else {
+                return townsSum + 1;
+            }
+        }, 0)
+        + (score.hasLargestArmy ? 2 : 0)
+        + (score.hasLongestRoad ? 2 : 0)
+        + (score.cards.reduce((cardVPSum, card) => {
+            return cardVPSum + card.vp;
+            }, 0));
+}
+
+export function countPlayedKnights(cards: ICard[]): number{
+    return cards.reduce((numPlayedKnights, card) => {
+        return numPlayedKnights + (card.isKnight && card.wasPlayed ? 1 : 0);
+    }, 0); 
 }

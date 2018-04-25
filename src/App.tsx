@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Board from './board/board';
-import Scores from './scores/scores';
+import Board from './components/board/board';
+import Scores from './components/scores/scores';
 
 import './App.css';
 

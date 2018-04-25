@@ -1,4 +1,4 @@
-import {ICard} from '../types/types';
+import {ICard} from '../types';
 
 /*
 14 Knights

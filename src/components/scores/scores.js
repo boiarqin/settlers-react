@@ -1,5 +1,5 @@
 import React from 'react';
-import {calculateVP, countPlayedKnights} from '../utils/utils';
+import {calculateVP, countPlayedKnights} from '../../utils/scoring';
 import './scores.css';
 /*
 import brickIcon from '../images/icons/brick-pile.svg';

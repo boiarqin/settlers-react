@@ -1,4 +1,4 @@
-import {Color} from '../types/types';
+import {Color} from '../types';
 /* const playerScoreboard = {
    playerName: '',
    playerColor: '',

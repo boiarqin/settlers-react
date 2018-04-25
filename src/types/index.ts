@@ -30,6 +30,7 @@ export interface ICard {
     vp: number;
     isKnight: boolean;
     color?: Color;
+    wasPlayed?: boolean;
 }
 
 export interface IPlayerResources {
@@ -39,6 +40,14 @@ export interface IPlayerResources {
     ore: number;
     sheep: number;
     lumber: number;
+}
+
+export interface ITradingResources {
+    bricks?: number;
+    wheat?: number;
+    ore?: number;
+    sheep?: number;
+    lumber?: number;
 }
 
 export interface ICatanState {
