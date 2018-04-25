@@ -4,25 +4,21 @@ import Scores from './scores/scores';
 
 import './App.css';
 
+import {getPlayerScores, initializeState} from './utils/scoring';
+
 // data
-import edgeList from './constants/edgeList';
-import hexList from './constants/hexList';
-import {playerColors, playerScoreboard } from './constants/players';
-import numVertices from './constants/vertices';
+import {
+  edgeList,
+  hexList,
+} from './constants';
 
 class App extends React.Component {
   public render() {
-    const scoreboard = playerColors.map((color, index) => {
-      return Object.assign({}, playerScoreboard,
-        {
-          playerColor: color,
-          playerOrder: index
-        }
-      );
-    });
+    const initialState = initializeState();
+    const scoreboard = getPlayerScores(initialState);
 
     const vertexList = [];
-    for (let x = 0; x < numVertices; x++){
+    for (let x = 0; x < initialState.totalVertices; x++){
       vertexList.push({type: 'town'});
     };
     
