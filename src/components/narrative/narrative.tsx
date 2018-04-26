@@ -18,7 +18,7 @@ function Narrative(props: INarrativeProps) {
     });
     return (
         <div className="narrative">
-            <ul>{events}</ul>
+            <ol>{events}</ol>
         </div>
     );
 };

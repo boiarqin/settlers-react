@@ -70,6 +70,7 @@ export interface ICatanState {
     };
     playerWithLargestArmy: Color | null;
     playerWithLongestRoad: Color | null;
+    turn: number;
 };
 
 export interface IPlayerScore extends IPlayerResources {

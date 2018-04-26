@@ -6,7 +6,6 @@ export const END_PLAYER_TURN = 'END_PLAYER_TURN';
 export const DISTRIBUTE_RESOURCES = 'DISTRIBUTE_RESOURCES';
 // THIEF ACTIONS
 export const MOVE_THIEF = 'MOVE_THIEF';
-export const STEAL_RESOURCE = 'STEAL_RESOURCE';
 // BUILDING
 export const BUILD_ROAD = 'BUILD_ROAD';
 export const BUILD_TOWN = 'BUILD_TOWN';
@@ -36,17 +35,11 @@ export const distributeResources = (dieRoll: number) => {
     }
 };
 
-export const moveThief = (newHex: number) => {
+export const moveThief = (newHex: number, targetPlayer: Color) => {
     return {
         newHex,
-        type: MOVE_THIEF
-    }
-};
-
-export const stealResource = (targetPlayer: Color) => {
-    return {
         targetPlayer,
-        type: STEAL_RESOURCE
+        type: MOVE_THIEF
     }
 };
 
@@ -75,8 +68,11 @@ export const buildDevCard = {
     type: BUILD_DEVELOPMENT_CARD
 };
 
-export const playKnight = {
-    type: PLAY_KNIGHT_CARD
+export const playKnightCard = (targetPlayer: Color) => {
+    return {
+        targetPlayer,
+        type: PLAY_KNIGHT_CARD
+    }
 };
 
 export const offerTrade = (targetPlayer: Color, myResources: ITradingResources, targetResources: ITradingResources) => {

@@ -12,56 +12,60 @@ import {
     MOVE_THIEF,
     OFFER_TRADE,
     PLAY_KNIGHT_CARD,
-    STEAL_RESOURCE,
-    UPGRADE_TOWN
+    UPGRADE_TOWN,
 } from '../actions';
-import {cardList, edgeList, hexAdjacentVertices, hexList, numVertices, playerColors} from '../constants';
-import {Color, ICatanState, IPlayerResources} from '../types';
+import {ICatanState} from '../types';
 
-const initialState : ICatanState = (() => {
-    const playerResources : {[K in Color]?: IPlayerResources} =
-        playerColors.reduce((accm, color) => {
-            accm[color] = ({
-                bricks: 0,
-                lumber: 0,
-                ore: 0,
-                sheep: 0,
-                wheat: 0
-            } as IPlayerResources);
-            return accm;
-        }, {});
-    return {
-        allEdges: edgeList,
-        allHexagons: hexList,
-        cards: cardList,
-        eventList: ['Initialized game'],
-        hexAdjacentVertices,
-        playerColors,
-        playerResources,
-        playerWithLargestArmy: null,
-        playerWithLongestRoad: null,
-        roads: [],
-        totalVertices: numVertices,
-        towns: []
-    };
-})();
+import {
+    distributeResources,
+    endPlayerTurn,
+    initializeState,
+    moveThief
+} from './basic.reducers';
+import {
+    buildDevCard,
+    buildRoad,
+    buildTown,
+    upgradeTown
+} from './build.reducers';
+import { playKnightCard } from './card.reducers';
+import { 
+    acceptTrade,
+    bankTrade,
+    declineTrade,
+    offerTrade
+ } from './trade.reducers';
+
+const initialState = initializeState();
 
 const catanReducer = (state: ICatanState = initialState, action: any) => {
     switch(action.type) {
         case INITIALIZE_GAME:
+            return initialState;
         case END_PLAYER_TURN:
+            return endPlayerTurn(state, action);
         case DISTRIBUTE_RESOURCES:
+            return distributeResources(state, action);
         case MOVE_THIEF:
-        case STEAL_RESOURCE:
+            return moveThief(state, action);
         case BUILD_ROAD:
+            return buildRoad(state, action);
         case BUILD_TOWN:
+            return buildTown(state, action);
         case UPGRADE_TOWN:
+            return upgradeTown(state, action);
         case BUILD_DEVELOPMENT_CARD:
+            return buildDevCard(state, action);
         case PLAY_KNIGHT_CARD:
+            return playKnightCard(state, action);
         case OFFER_TRADE:
+            return offerTrade(state, action);
         case ACCEPT_TRADE:
+            return acceptTrade(state, action);
         case DECLINE_TRADE:
+            return declineTrade(state, action);
         case BANK_TRADE:
+            return bankTrade(state, action);
         default:
             return state;
     }
