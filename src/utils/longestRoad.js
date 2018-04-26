@@ -1,3 +1,6 @@
+function deepClone(obj){
+    return JSON.parse(JSON.stringify(obj))
+}
 
 function markRoadSet(initRoad, playerRoads, allTowns){
     const start = initRoad.edge[0];
@@ -72,33 +75,99 @@ const numUniqSets = ((roads) => {
     return uniqSets.length;
 });
 
-function depthFirstSearch(initRoad, allRoads) {
+//return true if this road piece is an endpoint
+function isEndpoint(currRoad, playerRoads, allTowns) {
+    const start = currRoad.edge[0];
+    const end = currRoad.edge[1];
+    const color = currRoad.color;
+    let hasStartRoads = false;
+    let hasEndRoads = false;
+
+    const startBlocked = typeof allTowns.find(t => t.vertex === start && t.color !== color) !== "undefined";
+    const endBlocked = typeof allTowns.find(t => t.vertex === end && t.color !== color) !== "undefined";
+
+    if (!startBlocked) {
+        // get adjacent roads that aren't part of any set (but not the same)
+        const adjacentStartRoads = playerRoads.filter(r => (r.edge[0] === start || r.edge[1] === start) && (r !== currRoad));
+        hasStartRoads = (adjacentStartRoads.length > 0);
+    }
+    if (!endBlocked) {
+        // get adjacent roads that aren't part of any set (but not the same)
+        const adjacentEndRoads = playerRoads.filter(r => (r.edge[0] === end || r.edge[1] === end) && (r !== currRoad));
+        hasEndRoads = (adjacentEndRoads.length > 0);
+    }
+
+    // check if it has start/end connections, but not both
+    // single piece is an endpoint
+    return (!hasStartRoads && !hasEndRoads) || ((hasStartRoads || hasEndRoads) && !(hasStartRoads && hasEndRoads));
+}
+
+// return array of roads that are endpoints in this set
+function getEndpoints(playerRoads, allTowns){
+    return playerRoads.reduce((endpoints, currRoad) => {
+        if (isEndpoint(currRoad, playerRoads, allTowns)){
+            endpoints.push(currRoad);
+        }
+        return endpoints;
+    }, []);
+}
+
+function depthFirstSearch(index, allRoads, allTowns) {
+    const newRoads = deepClone(allRoads);
+    const initRoad = newRoads[index];
+    /* console.log(index)
+    console.log(newRoads.length)
+    console.log(initRoad) */
+
     const start = initRoad.edge[0];
     const end = initRoad.edge[1];
+    const color = initRoad.color;
     let adjacentRoads = [];
+    let adjacentEndRoads = [];
+    let adjacentStartRoads = [];
 
     initRoad.checked = true;
 
-    // get adjacent roads that aren't part of any set
-    const adjacentStartRoads = allRoads.filter(r => !r.checked && (r.edge[0] === start || r.edge[1] === start));
-    adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
+    // is this road blocked by another town?
+    const startBlocked = typeof allTowns.find(t => t.vertex === start && t.color !== color) !== "undefined";
+    const endBlocked = typeof allTowns.find(t => t.vertex === end && t.color !== color) !== "undefined";
 
-    const adjacentEndRoads = allRoads.filter(r => !r.checked && (r.edge[0] === end || r.edge[1] === end));
-    adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
+    if (!startBlocked) {
+        // get adjacent roads that aren't part of any set
+        adjacentStartRoads = newRoads.filter(r => !r.checked && (r.edge[0] === start || r.edge[1] === start));
+        //adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
+    }
+    if (!endBlocked) {
+        adjacentEndRoads = newRoads.filter(r => !r.checked && (r.edge[0] === end || r.edge[1] === end));
+        //adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
+    }
 
     //repeat check for each adjacentRoad
-    if (adjacentRoads.length > 0){
-        const result = adjacentRoads.reduce((accm, currRoad) => {
-            const longestSubPath = depthFirstSearch(currRoad, allRoads);
+    let total = 1;
+    if (adjacentStartRoads.length > 0){
+        const startResult = adjacentStartRoads.reduce((accm, currRoad) => {
+            const newIndex = newRoads.indexOf(currRoad);
+            const longestSubPath = depthFirstSearch(newIndex, newRoads, allTowns);
             if (longestSubPath > accm) {
                 accm = longestSubPath;
             }
             return accm;
         }, 0);
-        return result + 1;
-    } else {
-        return 1;
+        total = total + startResult;
     }
+    if (adjacentEndRoads.length > 0){
+        const endResult = adjacentEndRoads.reduce((accm, currRoad) => {
+            const newIndex = newRoads.indexOf(currRoad);
+            const longestSubPath = depthFirstSearch(newIndex, newRoads, allTowns);
+            if (longestSubPath > accm) {
+                accm = longestSubPath;
+            }
+            return accm;
+        }, 0);
+        total = total + endResult;
+    }
+
+    return total;
 }
 
 /* PREREQUISITE:
@@ -110,20 +179,34 @@ function depthFirstSearch(initRoad, allRoads) {
     
     https://stackoverflow.com/a/3192726
 */
+/*
 function getLongestRoadLength(playerRoads, allTowns){
     // first divide all roads into sets
     const roadsWithSets = divideIntoSets(playerRoads, allTowns);
     let longestRoadLength = 0;
     let currentSet = 0;
-    let currentSetOfRoads = playerRoads.filter(r => r.set === currentSet);
+    let currentSetOfRoads = roadsWithSets.filter(r => r.set === currentSet);
     while(currentSetOfRoads.length > 0){
         if (currentSetOfRoads.length >= 5){
         // if this set has 5 or more pieces, calculate longest road
+        // see if there are any "endpoints"; else road is in loop
         // by depth first search over each piece
-            //reset markers
-            currentSetOfRoads.forEach(r => r.checked = false);
-            const result = currentSetOfRoads.reduce((accm, currRoad) => {
-                const longestSubPath = depthFirstSearch(currRoad, allRoads);
+            let result = 0;    
+            const endpoints = getEndpoints(currentSetOfRoads);
+            
+
+            if (endpoints.length > 0){
+
+            } else {
+
+            }
+            
+            const result = currentSetOfRoads.reduce((accm, currRoad, currIdx) => {
+                //reset markers
+                //console.log(currIdx)
+                currentSetOfRoads.forEach(r => r.checked = false);
+                const longestSubPath = depthFirstSearch(currIdx, currentSetOfRoads, allTowns);
+                
                 if (longestSubPath > accm) {
                     accm = longestSubPath;
                 }
@@ -143,10 +226,12 @@ function getLongestRoadLength(playerRoads, allTowns){
 
     return longestRoadLength;
 }
+*/
 
 export {
     markRoadSet,
     divideIntoSets,
     depthFirstSearch,
-    getLongestRoadLength
+    isEndpoint,
+    getEndpoints
 };
