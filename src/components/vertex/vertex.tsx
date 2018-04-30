@@ -1,16 +1,17 @@
 import * as React from 'react';
 import './vertex.css';
 
-import {IVertex} from '../../types';
+import { Color, IVertex } from '../../types';
 
 interface IVertexProps {
     index: IVertex,
-    type: string
+    type: string,
+    color: Color
 }
 
 function Vertex(props: IVertexProps) {
     return (
-        <div className={"vtx vtx-" + props.index + " " + props.type}/>
+        <div className={"vtx vtx-" + props.index + " " + props.type + " " + props.color}/>
     );
 }
 

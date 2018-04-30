@@ -9,15 +9,15 @@ import { ICatanState, IHexagon, IRoad, ITown } from '../../types';
 import './board.css'
 
 interface IBoardProps {
-    edgeList: IRoad[];
     hexList: IHexagon[];
-    vertexList: ITown[];
+    roadList: IRoad[];
+    townList: ITown[];
 };
 
 const mapStateToProps = (state: ICatanState, ownProps: IBoardProps) => ({
-    edgeList: state.roads,
     hexList: state.allHexagons,
-    vertexList: state.towns
+    roadList: state.roads,
+    townList: state.towns
 });
 
 function Board(props: IBoardProps) {
@@ -31,21 +31,23 @@ function Board(props: IBoardProps) {
             />
         );
     });
-    const edges = props.edgeList.map((edge, i) => {
+    const edges = props.roadList.map((road, i) => {
         return (
             <Edge
                 key={i}
-                start={edge[0]}
-                end={edge[1]}
+                start={road.edge[0]}
+                end={road.edge[1]}
+                color={road.color}
             />
         );
     });
-    const vertices = props.vertexList.map((vtx, i) => {
+    const vertices = props.townList.map((town, i) => {
         return (
             <Vertex
-                key={i}
-                index={i}
-                type={vtx.isCity ? 'town' : 'city'}
+                key={town.vertex}
+                index={town.vertex}
+                type={town.isCity ? 'town' : 'city'}
+                color={town.color}
             />
         );
     });
