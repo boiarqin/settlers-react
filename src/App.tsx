@@ -101,7 +101,7 @@ class App extends React.Component<IAppProps, IAppState> {
       // roll dice
       const dieRoll = rollADie() + rollADie();
       // distribute resources or move thief
-      if (dieRoll != 7){
+      if (dieRoll !== 7){
         
         this.props.dispatchDistributeResources(dieRoll);
       } else {

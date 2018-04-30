@@ -1,4 +1,4 @@
-import { ICatanState } from '../types';
+import { ICatanState, Resource, Terrain } from '../types';
 
 // Random # between 1 and 6
 export function rollADie(): number {
@@ -13,6 +13,24 @@ export function getCurrentPlayerColor(state: ICatanState) {
     } else {
         const playerNum = state.turn % state.playerColors.length;
         return state.playerColors[playerNum];
+    }
+}
+
+export function convertTerrainToResource(terrain: Terrain) : Resource | null {
+    switch(terrain) {
+        case 'forest':
+            return 'lumber';
+        case 'pasture':
+            return 'sheep';
+        case 'hill':
+            return 'bricks';
+        case 'mountain':
+            return 'ore';
+        case 'field':
+            return 'wheat';
+        case 'desert':
+        default:
+            return null;
     }
 }
 

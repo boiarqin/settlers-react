@@ -66,7 +66,7 @@ export interface ICatanState {
     
     playerColors: Color[];
     playerResources: {
-        [K in Color]?: IPlayerResources
+        [K in Color]: IPlayerResources
     };
     playerWithLargestArmy: Color | null;
     playerWithLongestRoad: Color | null;
