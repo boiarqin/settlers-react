@@ -1,11 +1,121 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import Board from './components/board/board';
 import Narrative from './components/narrative/narrative';
 import Scores from './components/scores/scores';
 
 import './App.css';
 
-class App extends React.Component {
+import { ICatanState, IEdge } from './types';
+import { ICatanBot } from './types/bot';
+
+import { createBasicBot } from './bots/basic.bot';
+
+import { playerHasWon } from './utils/scoring';
+import {
+  getCurrentPlayerColor,
+  rollADie
+} from './utils/utils'; 
+
+import { distributeResources, endPlayerTurn, initialMove1, initialMove2 } from './actions';
+
+interface IAppProps {
+  dispatchDistributeResources: (dieRoll: number) => any;
+  dispatchEndPlayerTurn: () => any,
+  dispatchInitialMove1: (townVertex: number, roadEdge: IEdge) => any;
+  dispatchInitialMove2: (townVertex: number, roadEdge: IEdge) => any;
+  gameState: ICatanState;
+}
+
+interface IAppState {
+  players: {
+    red: ICatanBot,
+    orange: ICatanBot,
+    green: ICatanBot,
+    blue: ICatanBot
+  }
+}
+
+const mapStateToProps = (state: ICatanState, ownProps: IAppProps) => ({
+  ...ownProps,
+  gameState : state
+});
+
+
+const mapDispatchToProps = (dispatch: any, ownProps:any) => ({
+  dispatchDistributeResources: (dieRoll: number) => dispatch(distributeResources(dieRoll)),
+  dispatchEndPlayerTurn: () => dispatch(endPlayerTurn()),
+  dispatchInitialMove1: (townVertex: number, roadEdge: IEdge) => dispatch(initialMove1(townVertex, roadEdge)),
+  dispatchInitialMove2: (townVertex: number, roadEdge: IEdge) => dispatch(initialMove2(townVertex, roadEdge))
+});
+
+class App extends React.Component<IAppProps, IAppState> {
+  private timerID: NodeJS.Timer;
+
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      players: {
+        blue: createBasicBot('blue'),
+        green: createBasicBot('green'),
+        orange: createBasicBot('orange'),
+        red: createBasicBot('red')
+      }
+    }
+  }
+
+  public componentDidMount() {
+    this.timerID = setInterval(()=> this.tick(), 5000);
+  }
+
+  public componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  public tick() {
+    /* tslint:disable */
+    console.log('tick');
+    /* tslint:enable */ 
+    
+    const turn = this.props.gameState.turn;
+    const numPlayers = this.props.gameState.playerColors.length;
+    const currentColor = getCurrentPlayerColor(this.props.gameState);
+    const currentPlayer = this.state.players[currentColor];
+
+    if (playerHasWon(this.props.gameState)) {
+      clearInterval(this.timerID);
+      // GAME OVER
+    }
+    if (turn >= 0 && turn < numPlayers) {
+      // INITIAL MOVES 1
+      const {townVertex, roadEdge} = currentPlayer.makeInitialMove1(this.props.gameState);
+      this.props.dispatchInitialMove1(townVertex, roadEdge);
+      this.props.dispatchEndPlayerTurn();
+    } else if (turn >= numPlayers && turn < numPlayers*2) {
+      // INITIAL MOVES 2
+      const {townVertex, roadEdge} = currentPlayer.makeInitialMove2(this.props.gameState);
+      this.props.dispatchInitialMove2(townVertex, roadEdge);
+      this.props.dispatchEndPlayerTurn();
+    } else {
+      // NORMAL TURN
+      // roll dice
+      const dieRoll = rollADie() + rollADie();
+      // distribute resources or move thief
+      if (dieRoll != 7){
+        
+        this.props.dispatchDistributeResources(dieRoll);
+      } else {
+        /*
+        currentPlayer.moveThief();
+        dispatch(moveThief({})); 
+        */
+      }
+      // get actions from user until user ends turn
+      // this.props.dispatchMakeTurn(dieRoll);
+      this.props.dispatchEndPlayerTurn();
+    } 
+  }
+
   public render() {
 
     return (
@@ -28,4 +138,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect<IAppProps>(mapStateToProps, mapDispatchToProps)(App);

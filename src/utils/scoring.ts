@@ -1,5 +1,13 @@
 import {Color, ICard, ICatanState, IPlayerScore} from '../types';
 
+// TODO: refactor with compose
+export function playerHasWon(state: ICatanState): boolean {
+    return getPlayerScores(state)
+    .map(score => calculateVP(score))
+    .filter(vp => vp >= 10)
+    .length > 0;
+}
+
 // take in board state, return score for each player
 export function getPlayerScores(state: ICatanState) : IPlayerScore[]{
     return state.playerColors.map(color => getSinglePlayerScore(state, color))

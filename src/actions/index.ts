@@ -4,6 +4,8 @@ import {Color, IEdge, ITradingResources, IVertex} from '../types';
 export const INITIALIZE_GAME = 'INITIALIZE_GAME';
 export const END_PLAYER_TURN = 'END_PLAYER_TURN';
 export const DISTRIBUTE_RESOURCES = 'DISTRIBUTE_RESOURCES';
+export const INITIAL_MOVE_1 = 'INITIAL_MOVE_1';
+export const INITIAL_MOVE_2 = 'INITIAL_MOVE_2';
 // THIEF ACTIONS
 export const MOVE_THIEF = 'MOVE_THIEF';
 // BUILDING
@@ -24,14 +26,30 @@ export const initializeGame = {
     type: INITIALIZE_GAME
 };
 
-export const endPlayerTurn = {
+export const endPlayerTurn = () => ({
     type: END_PLAYER_TURN
-};
+});
 
 export const distributeResources = (dieRoll: number) => {
     return {
         dieRoll,
         type: DISTRIBUTE_RESOURCES
+    }
+};
+
+export const initialMove1 = (townVertex: number, roadEdge: IEdge) => {
+    return {
+        roadEdge,
+        townVertex,
+        type: INITIAL_MOVE_1
+    }
+};
+
+export const initialMove2 = (townVertex: number, roadEdge: IEdge) => {
+    return {
+        roadEdge,
+        townVertex,
+        type: INITIAL_MOVE_2
     }
 };
 

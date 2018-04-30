@@ -8,6 +8,8 @@ import {
     DECLINE_TRADE,
     DISTRIBUTE_RESOURCES,
     END_PLAYER_TURN,
+    INITIAL_MOVE_1,
+    INITIAL_MOVE_2,
     INITIALIZE_GAME,
     MOVE_THIEF,
     OFFER_TRADE,
@@ -20,6 +22,8 @@ import {
     distributeResources,
     endPlayerTurn,
     initializeState,
+    initialMove1,
+    initialMove2,
     moveThief
 } from './basic.reducers';
 import {
@@ -44,7 +48,14 @@ const catanReducer = (state: ICatanState = initialState, action: any) => {
             return initialState;
         case END_PLAYER_TURN:
             return endPlayerTurn(state, action);
+        case INITIAL_MOVE_1:
+            return initialMove1(state, action);
+        case INITIAL_MOVE_2:
+            return initialMove2(state, action);
         case DISTRIBUTE_RESOURCES:
+            /* tslint:disable */
+            console.log('distributeResources')
+            /* tslint:enable */
             return distributeResources(state, action);
         case MOVE_THIEF:
             return moveThief(state, action);

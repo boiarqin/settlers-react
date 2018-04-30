@@ -87,4 +87,3 @@ export interface IPlayerScore extends IPlayerResources {
     hasLargestArmy: boolean;
     hasLongestRoad: boolean;
 };
-
