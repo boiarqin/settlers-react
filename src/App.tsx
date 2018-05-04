@@ -6,18 +6,25 @@ import Scores from './components/scores/scores';
 
 import './App.css';
 
+import {
+  BUILD_DEVELOPMENT_CARD,
+  BUILD_ROAD,
+  BUILD_TOWN,
+  distributeResources,
+  END_PLAYER_TURN,
+  endPlayerTurn,
+  initialMove1,
+  initialMove2,
+  UPGRADE_TOWN
+} from './actions';
+import { createBasicBot } from './bots/basic.bot';
 import { ICatanState, IEdge } from './types';
 import { ICatanBot } from './types/bot';
-
-import { createBasicBot } from './bots/basic.bot';
-
 import { playerHasWon } from './utils/scoring';
 import {
   getCurrentPlayerColor,
   rollADie
-} from './utils/utils'; 
-
-import { distributeResources, endPlayerTurn, initialMove1, initialMove2 } from './actions';
+} from './utils/utils';
 
 interface IAppProps {
   dispatchDistributeResources: (dieRoll: number) => any;
@@ -105,14 +112,30 @@ class App extends React.Component<IAppProps, IAppState> {
         
         this.props.dispatchDistributeResources(dieRoll);
       } else {
+        // players with too many cards choose what to keep/discard
         /*
+
         currentPlayer.moveThief();
         dispatch(moveThief({})); 
         */
       }
       // get actions from user until user ends turn
+      let nextAction = { type: 'TBD' };
+      while(nextAction.type !== 'END_PLAYER_TURN'){
+        nextAction = currentPlayer.makeTurn(this.props.gameState);
+        // double check action types
+        switch(nextAction.type) {
+          case BUILD_ROAD:
+          case BUILD_TOWN:
+          case UPGRADE_TOWN:
+          case BUILD_DEVELOPMENT_CARD:
+          case END_PLAYER_TURN:
+          default:
+            this.props.dispatchEndPlayerTurn();
+        }
+      }
       // this.props.dispatchMakeTurn(dieRoll);
-      this.props.dispatchEndPlayerTurn();
+      // this.props.dispatchEndPlayerTurn();
     } 
   }
 

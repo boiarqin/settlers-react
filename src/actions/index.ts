@@ -8,6 +8,7 @@ export const INITIAL_MOVE_1 = 'INITIAL_MOVE_1';
 export const INITIAL_MOVE_2 = 'INITIAL_MOVE_2';
 // THIEF ACTIONS
 export const MOVE_THIEF = 'MOVE_THIEF';
+export const DISCARD_HALF_RESOURCES = 'DISCARD_HALF_RESOURCES';
 // BUILDING
 export const BUILD_ROAD = 'BUILD_ROAD';
 export const BUILD_TOWN = 'BUILD_TOWN';
@@ -22,9 +23,9 @@ export const DECLINE_TRADE = 'DECLINE_TRADE';
 export const BANK_TRADE = 'BANK_TRADE'; // needs to account for PORT_TRADE
 
 /* ACTION CREATORS */
-export const initializeGame = {
+export const initializeGame = () => ({
     type: INITIALIZE_GAME
-};
+});
 
 export const endPlayerTurn = () => ({
     type: END_PLAYER_TURN
@@ -34,6 +35,13 @@ export const distributeResources = (dieRoll: number) => {
     return {
         dieRoll,
         type: DISTRIBUTE_RESOURCES
+    }
+};
+
+export const discardHalfResources = (discardedResources: ITradingResources) => {
+    return {
+        discardedResources,
+        type: DISCARD_HALF_RESOURCES
     }
 };
 
@@ -82,9 +90,9 @@ export const upgradeTown = (targetVtx: IVertex) => {
     };
 };
 
-export const buildDevCard = {
+export const buildDevCard = () => ({
     type: BUILD_DEVELOPMENT_CARD
-};
+});
 
 export const playKnightCard = (targetPlayer: Color) => {
     return {
@@ -101,13 +109,13 @@ export const offerTrade = (targetPlayer: Color, myResources: ITradingResources, 
     };
 };
 
-export const acceptTrade = {
+export const acceptTrade = () => ({
     type: ACCEPT_TRADE
-};
+});
 
-export const declineTrade = {
+export const declineTrade = () => ({
     type: DECLINE_TRADE
-};
+});
 
 export const bankTrade = (myResources: ITradingResources, targetResources: ITradingResources) => {
     return {

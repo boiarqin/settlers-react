@@ -25,7 +25,7 @@ export const createBasicBot: (color: Color) => ICatanBot = (color: Color) => {
         },
         makeTurn: (state: ICatanState) => {
             return {
-                type: 'sdfdsf'
+                type: 'END_PLAYER_TURN'
             };
         },
         

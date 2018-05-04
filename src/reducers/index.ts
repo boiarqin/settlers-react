@@ -6,6 +6,7 @@ import {
     BUILD_ROAD,
     BUILD_TOWN,
     DECLINE_TRADE,
+    DISCARD_HALF_RESOURCES,
     DISTRIBUTE_RESOURCES,
     END_PLAYER_TURN,
     INITIAL_MOVE_1,
@@ -19,6 +20,7 @@ import {
 import {ICatanState} from '../types';
 
 import {
+    discardHalfResources,
     distributeResources,
     endPlayerTurn,
     initializeState,
@@ -59,6 +61,8 @@ const catanReducer = (state: ICatanState = initialState, action: any) => {
             return distributeResources(state, action);
         case MOVE_THIEF:
             return moveThief(state, action);
+        case DISCARD_HALF_RESOURCES:
+            return discardHalfResources(state, action);
         case BUILD_ROAD:
             return buildRoad(state, action);
         case BUILD_TOWN:

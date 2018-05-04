@@ -1,4 +1,4 @@
-import { ICatanState, Resource, Terrain } from '../types';
+import { ICatanState, IPlayerResources, ITradingResources, Resource, Terrain } from '../types';
 
 // Random # between 1 and 6
 export function rollADie(): number {
@@ -32,6 +32,18 @@ export function convertTerrainToResource(terrain: Terrain) : Resource | null {
         default:
             return null;
     }
+}
+
+// PREREQUISITE: playerResources cannot go below 0
+export function modifyPlayerResources(playerResources: IPlayerResources, changingResources: ITradingResources): IPlayerResources {
+    return {
+        ...playerResources,
+        bricks: playerResources.bricks + (changingResources.bricks ? changingResources.bricks : 0),
+        lumber: playerResources.lumber + (changingResources.lumber ? changingResources.lumber : 0),
+        ore: playerResources.ore + (changingResources.ore ? changingResources.ore : 0),
+        sheep: playerResources.sheep + (changingResources.sheep ? changingResources.sheep : 0),
+        wheat: playerResources.wheat + (changingResources.wheat ? changingResources.wheat : 0),
+    };
 }
 
 // HIDE CERTAIN ASPECTS OF OPPONENT'S STATE

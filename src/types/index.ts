@@ -31,23 +31,24 @@ export interface ICard {
     isKnight: boolean;
     color?: Color;
     wasPlayed?: boolean;
+    turn?: number;
 }
 
 export interface IPlayerResources {
     playerColor: Color;
     bricks: number;
-    wheat: number;
+    lumber: number;
     ore: number;
     sheep: number;
-    lumber: number;
+    wheat: number;
 }
 
 export interface ITradingResources {
     bricks?: number;
-    wheat?: number;
+    lumber?: number;
     ore?: number;
     sheep?: number;
-    lumber?: number;
+    wheat?: number;
 }
 
 export interface ICatanState {
@@ -57,6 +58,8 @@ export interface ICatanState {
     hexAdjacentVertices: Array<[IVertex, IVertex, IVertex, IVertex, IVertex, IVertex]>;
     totalVertices: number;
     allEdges: IEdge[];
+
+    thiefHex: number;
 
     eventList: string[],
     
