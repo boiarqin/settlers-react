@@ -111,13 +111,10 @@ function getEndpoints(playerRoads, allTowns){
         return endpoints;
     }, []);
 }
-
+/*
 function depthFirstSearch(index, allRoads, allTowns) {
     const newRoads = deepClone(allRoads);
     const initRoad = newRoads[index];
-    /* console.log(index)
-    console.log(newRoads.length)
-    console.log(initRoad) */
 
     const start = initRoad.edge[0];
     const end = initRoad.edge[1];
@@ -135,38 +132,76 @@ function depthFirstSearch(index, allRoads, allTowns) {
     if (!startBlocked) {
         // get adjacent roads that aren't part of any set
         adjacentStartRoads = newRoads.filter(r => !r.checked && (r.edge[0] === start || r.edge[1] === start));
-        //adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
-    }
+        adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
+    } 
     if (!endBlocked) {
         adjacentEndRoads = newRoads.filter(r => !r.checked && (r.edge[0] === end || r.edge[1] === end));
-        //adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
+        adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
     }
 
     //repeat check for each adjacentRoad
     let total = 1;
-    if (adjacentStartRoads.length > 0){
-        const startResult = adjacentStartRoads.reduce((accm, currRoad) => {
+    if (adjacentRoads.length > 0){
+        const startResult = adjacentRoads.reduce((accm, currRoad) => {
             const newIndex = newRoads.indexOf(currRoad);
             const longestSubPath = depthFirstSearch(newIndex, newRoads, allTowns);
             if (longestSubPath > accm) {
+                console.log(newRoads[newIndex], longestSubPath);
                 accm = longestSubPath;
             }
             return accm;
         }, 0);
         total = total + startResult;
     }
-    if (adjacentEndRoads.length > 0){
-        const endResult = adjacentEndRoads.reduce((accm, currRoad) => {
+    return total;
+}*/
+
+//cannot go back via lastUsedVtx
+function depthFirstSearch(index, lastUsedVtx, allRoads, allTowns) {
+    const newRoads = deepClone(allRoads);
+    const initRoad = newRoads[index];
+
+    const start = initRoad.edge[0];
+    const end = initRoad.edge[1];
+    const color = initRoad.color;
+    let adjacentRoads = [];
+    let adjacentEndRoads = [];
+    let adjacentStartRoads = [];
+
+    initRoad.checked = true;
+
+    // is this road blocked by another town?
+    const startBlocked = typeof allTowns.find(t => t.vertex === start && t.vertex !== lastUsedVtx && t.color !== color) !== "undefined";
+    const endBlocked = typeof allTowns.find(t => t.vertex === end && t.vertex !== lastUsedVtx && t.color !== color) !== "undefined";
+
+    if (!startBlocked) {
+        // get adjacent roads that aren't part of any set
+        adjacentStartRoads = newRoads.filter(r => !r.checked && (r.edge[0] !== lastUsedVtx && r.edge[1] !== lastUsedVtx) && (r.edge[0] === start || r.edge[1] === start));
+        adjacentRoads = adjacentRoads.concat(adjacentStartRoads);
+    } 
+    if (!endBlocked) {
+        adjacentEndRoads = newRoads.filter(r => !r.checked  && (r.edge[0] !== lastUsedVtx && r.edge[1] !== lastUsedVtx) && (r.edge[0] === end || r.edge[1] === end));
+        adjacentRoads = adjacentRoads.concat(adjacentEndRoads);
+    }
+
+    //repeat check for each adjacentRoad
+    let total = 1;
+    if (adjacentRoads.length > 0){
+        //console.log([start, end], lastUsedVtx)
+        //console.log(adjacentStartRoads)
+        const startResult = adjacentRoads.reduce((accm, currRoad) => {
             const newIndex = newRoads.indexOf(currRoad);
-            const longestSubPath = depthFirstSearch(newIndex, newRoads, allTowns);
+            const newLastUsedVtx = (currRoad.edge[0] === start || currRoad.edge[1] === start) ? start : end;
+            //console.log(newRoads[newIndex], newLastUsedVtx, [start, end]);
+            const longestSubPath = depthFirstSearch(newIndex, newLastUsedVtx, newRoads, allTowns);
             if (longestSubPath > accm) {
+                //console.log(newRoads[newIndex], longestSubPath);
                 accm = longestSubPath;
             }
             return accm;
         }, 0);
-        total = total + endResult;
+        total = total + startResult;
     }
-
     return total;
 }
 
