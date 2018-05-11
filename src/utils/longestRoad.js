@@ -169,7 +169,7 @@ function depthFirstSearch(index, lastUsedVtx, allRoads, allTowns) {
     
     https://stackoverflow.com/a/3192726
 */
-/*
+
 function getLongestRoadLength(playerRoads, allTowns){
     // first divide all roads into sets
     const roadsWithSets = divideIntoSets(playerRoads, allTowns);
@@ -181,21 +181,15 @@ function getLongestRoadLength(playerRoads, allTowns){
         // if this set has 5 or more pieces, calculate longest road
         // see if there are any "endpoints"; else road is in loop
         // by depth first search over each piece
-            let result = 0;    
-            const endpoints = getEndpoints(currentSetOfRoads);
+            let endpoints = getEndpoints(currentSetOfRoads, allTowns);
             
-
-            if (endpoints.length > 0){
-
-            } else {
-
-            }
-            
+            if (endpoints.length === 0){ // consider all road pieces as potential endpoints
+                endpoints = currentSetOfRoads;
+            } 
             const result = currentSetOfRoads.reduce((accm, currRoad, currIdx) => {
                 //reset markers
-                //console.log(currIdx)
                 currentSetOfRoads.forEach(r => r.checked = false);
-                const longestSubPath = depthFirstSearch(currIdx, currentSetOfRoads, allTowns);
+                const longestSubPath = depthFirstSearch(currIdx, null, currentSetOfRoads, allTowns);
                 
                 if (longestSubPath > accm) {
                     accm = longestSubPath;
@@ -216,12 +210,12 @@ function getLongestRoadLength(playerRoads, allTowns){
 
     return longestRoadLength;
 }
-*/
 
 export {
     markRoadSet,
     divideIntoSets,
     depthFirstSearch,
     isEndpoint,
-    getEndpoints
+    getEndpoints,
+    getLongestRoadLength
 };

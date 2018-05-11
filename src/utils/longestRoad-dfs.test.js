@@ -1,6 +1,6 @@
 import { depthFirstSearch } from './longestRoad';
 
-describe.only('Calculate length of longest subpath starting from given edge in set (no towns)', ()=> {
+describe('Calculate length of longest subpath starting from given edge in set (no towns)', ()=> {
     it ('returns 1 for single piece', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false}
