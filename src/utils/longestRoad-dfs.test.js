@@ -1,7 +1,6 @@
 import { depthFirstSearch } from './longestRoad';
 
 describe.only('Calculate length of longest subpath starting from given edge in set (no towns)', ()=> {
-    
     it ('returns 1 for single piece', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false}
@@ -25,7 +24,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(0, null, myRoads, myTowns)).toEqual(2);
     });
-    
     it ('returns 3 for 3 connected pieces (start from endpoint)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
@@ -44,7 +42,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(0, null, myRoads, myTowns)).toEqual(2);
     });
-    
     it ('returns 3 for 3 connected pieces (in cycle)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
@@ -54,7 +51,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(0, null, myRoads, myTowns)).toEqual(3);
     });
-    
     it ('returns 10 for connected pieces (horizontal infinity shape, side piece)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
@@ -72,7 +68,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(0, null, myRoads, myTowns)).toEqual(10);
     });
-    
     it ('returns 11 for connected pieces (horizontal infinity shape, midpoint)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
@@ -90,7 +85,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(5, null, myRoads, myTowns)).toEqual(11);
     }); 
-    
     it ('returns 4 for connected pieces (line shape, 2nd place)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
@@ -114,7 +108,6 @@ describe.only('Calculate length of longest subpath starting from given edge in s
         var myTowns = [];
         expect(depthFirstSearch(1, null, myRoads, myTowns)).toEqual(2);
     });
-    
     it ('returns 3 for connected pieces (H shape, endpoint)', () => {
         var myRoads = [
             {edge: [0,1], color: 'red', checked: false},
