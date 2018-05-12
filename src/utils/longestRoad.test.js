@@ -1,6 +1,6 @@
 import { getLongestRoadLength, getEndpoints } from './longestRoad';
 
-describe.only('Calculate longest road for player red', ()=> {
+describe('Calculate longest road for player red', ()=> {
     it ('returns 11 for horiz infinity shape, no towns', () => {
         var myRoads = [
             {edge: [0,1], color: 'red'},
