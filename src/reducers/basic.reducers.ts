@@ -145,7 +145,7 @@ export const moveThief = (state: ICatanState, action: any) => {
     const currentColor = getCurrentPlayerColor(state);
     // get random resource from
     if (action.targetPlayer){
-        let targetResources: string[] = [];
+        const targetResources: string[] = [];
         targetResources.fill('bricks', 0, currentResources[action.targetPlayer].bricks);
         targetResources.fill('lumber', targetResources.length, targetResources.length + currentResources[action.targetPlayer].bricks);
         targetResources.fill('ore', targetResources.length, targetResources.length + currentResources[action.targetPlayer].bricks);
@@ -161,8 +161,8 @@ export const moveThief = (state: ICatanState, action: any) => {
 
     return {
         ...state,
-        thiefHex: action.newHex,
         playerResources: currentResources,
+        thiefHex: action.newHex
     };
 };
 

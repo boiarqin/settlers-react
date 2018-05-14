@@ -8,17 +8,17 @@ export const roadCost: ITradingResources = {
 export const townCost: ITradingResources = {
     bricks: -1,
     lumber: -1,
-    wheat: -1,
-    sheep: -1
+    sheep: -1,
+    wheat: -1
 }
 
 export const cityCost: ITradingResources = {
-    wheat: -2,
-    ore: -3
+    ore: -3,
+    wheat: -2
 }
 
 export const devCardCost: ITradingResources = {
     ore: -1,
-    wheat: -1,
-    sheep: -1
+    sheep: -1,
+    wheat: -1
 }

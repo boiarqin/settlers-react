@@ -1,4 +1,4 @@
-import { Color, ICatanState, IEdge } from ".";
+import { ICatanState, IEdge } from ".";
 
 interface IAction {
     type: string;
@@ -6,7 +6,7 @@ interface IAction {
 
 // any bot must implement this interface
 export interface ICatanBot {
-    getOwnColor: () => Color;
+    // getOwnColor: () => Color;
     makeInitialMove1: (state: ICatanState) => {townVertex: number, roadEdge: IEdge};
     makeInitialMove2: (state: ICatanState) => {townVertex: number, roadEdge: IEdge};
     makeTurn: (state: ICatanState) => IAction;

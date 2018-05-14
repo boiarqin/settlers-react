@@ -1,4 +1,4 @@
-import { Color, ICatanState, IPlayerResources, IRoad, ITown, ITradingResources } from '../types';
+import { Color, ICatanState, IEdge, IPlayerResources, IRoad, ITown, ITradingResources, IVertex } from '../types';
 
 // return true if player has enough resources
 export const canAfford = (playerResources: IPlayerResources, changingResources: ITradingResources): boolean => {
@@ -34,6 +34,21 @@ export const isValidRoadLocation = (state: ICatanState, newRoad: IRoad) : boolea
     return (!hasExistingRoad && hasAdjacentColorRoad);
 };
 
+// return array of valid road locations for player color
+export const getValidRoadLocations = (state: ICatanState, color: Color) : IEdge[] => {
+    const validRoadLocations: IEdge[] = [];
+    return state.allEdges.reduce((accm, currEdge) => {
+        const tempRoad = {
+            color,
+            edge: currEdge
+        };
+        if (isValidRoadLocation(state, tempRoad)){
+            accm.push(currEdge);
+        }
+        return accm;
+    }, validRoadLocations);
+}
+
 // return true if this is a valid location for a new town
 export const isValidTownLocation = (state: ICatanState, newTown: ITown) : boolean => {
     const vertex = newTown.vertex;
@@ -44,12 +59,29 @@ export const isValidTownLocation = (state: ICatanState, newTown: ITown) : boolea
     // there must not be an adjacent town
     const adjacentVertices = state.allEdges
         .filter(e => e[0] === vertex || e[1] === vertex)
-        .map(e => e[0] === vertex ? e[0] : e[1]);
-    const hasAdjacentTowns = state.towns.filter(t => adjacentVertices.includes(t.vertex));
+        .map(e => e[0] === vertex ? e[1] : e[0]);
+    const hasAdjacentTowns = state.towns.filter(t => adjacentVertices.includes(t.vertex)).length > 0;
     // this must connect to at least road of the same color
     const hasAdjacentColorRoad = typeof state.roads.find(r => r.color === color && (r.edge[0] === vertex || r.edge[1] === vertex)) !== 'undefined';
 
     return !hasExistingTown && !hasAdjacentTowns && hasAdjacentColorRoad;
+};
+
+// return array of valid town locations for player color
+export const getValidTownLocations = (state: ICatanState, color: Color) : IVertex[] => {
+    const validTownLocations: IVertex[] = [];
+    for (let i = 0; i < state.totalVertices; i++) {
+        const tempTown = {
+            color,
+            isCity: false,
+            isPort: false,
+            vertex: i
+        };
+        if (isValidTownLocation(state, tempTown)){
+            validTownLocations.push(i);
+        }
+    }
+    return validTownLocations;
 };
 
 // return true if this is a valid town for upgrading to city
@@ -57,4 +89,4 @@ export const isValidCityLocation = (state: ICatanState, playerColor: Color, city
     // there must be a town here of the same color
     const hasExistingTown = typeof state.towns.find(t => t.vertex === cityVertex && t.color === playerColor) !== 'undefined';
     return hasExistingTown;
-}
+};

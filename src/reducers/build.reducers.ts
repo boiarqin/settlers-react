@@ -1,5 +1,5 @@
+import { cityCost, devCardCost, roadCost, townCost } from '../constants';
 import { ICatanState, IRoad, ITown } from '../types';
-import { cityCost, roadCost, townCost, devCardCost } from '../constants';
 import { getCurrentPlayerColor, modifyPlayerResources } from '../utils/utils';
 import { canAfford, isValidCityLocation, isValidRoadLocation, isValidTownLocation } from '../utils/verification';
 
@@ -102,11 +102,11 @@ export const buildDevCard = (state: ICatanState, action: any) => {
         
         return {
             ...state,
+            cards: [...state.cards],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
-            },
-            cards: [...state.cards]
+            }
         };
     } else {
         return state;
