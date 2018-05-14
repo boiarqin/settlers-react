@@ -1,6 +1,8 @@
-import { ICatanState, IEdge } from ".";
+import { ICatanState, IEdge, IVertex } from ".";
 
-interface IAction {
+export interface IAction {
+    targetEdge? : IEdge;
+    targetVtx? : IVertex;
     type: string;
 }
 

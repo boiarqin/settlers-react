@@ -2,7 +2,12 @@ import { ICatanState, IPlayerResources, ITradingResources, Resource, Terrain } f
 
 // Random # between 1 and 6
 export function rollADie(): number {
-    return Math.floor(Math.random() * 6) + 1;
+    // return Math.floor(Math.random() * 6) + 1;
+    return random(6, 1);
+}
+
+export function random(high: number, low=0) {
+    return Math.floor(Math.random() * high) + low;
 }
 
 export function getCurrentPlayerColor(state: ICatanState) {

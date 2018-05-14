@@ -13,11 +13,11 @@ export const canAfford = (playerResources: IPlayerResources, changingResources: 
     };
 
     return (
-        updatedResources.bricks > 0
-        && updatedResources.lumber > 0
-        && updatedResources.ore > 0
-        && updatedResources.sheep > 0
-        && updatedResources.wheat > 0
+        updatedResources.bricks >= 0
+        && updatedResources.lumber >= 0
+        && updatedResources.ore >= 0
+        && updatedResources.sheep >= 0
+        && updatedResources.wheat >= 0
     );
 };
 

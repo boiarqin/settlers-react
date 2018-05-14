@@ -46,7 +46,7 @@ function Board(props: IBoardProps) {
             <Vertex
                 key={town.vertex}
                 index={town.vertex}
-                type={town.isCity ? 'town' : 'city'}
+                type={town.isCity ? 'city' : 'town'}
                 color={town.color}
             />
         );

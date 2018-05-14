@@ -2,19 +2,28 @@
 
 .vtx {
     position: absolute;
-    transform: translate(-5px, -5px);
-    height: 10px;
-    width: 10px;
+    transform: translate(-10px, -10px);
+    height: 20px;
+    width: 20px;
     border-radius: 100%;
-    //background-color: black;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.vtx .embed {
+    height: 100%;
+    width: 100%;
 }
 
 .vtx.town {
-
+    height: 21px;
+    width: 21px;
 }
 
 .vtx.city {
-    
+    transform: translate(-15px, -15px);
+    height: 31px;
+    width: 31px;
 }
 
 .vtx.port {
@@ -22,16 +31,20 @@
 }
 
 .vtx.red {
-    background: red;
+    background: darkred;
+    border-color: red;
 }
 .vtx.orange {
-    background: orange;
+    background: darkorange;
+    border-color: orange;
 }
 .vtx.green {
-    background: green;
+    background: darkgreen;
+    border-color: green;
 }
 .vtx.blue {
-    background: blue;
+    background: darkblue;
+    border-color: blue;
 }
 
 //Group 1
