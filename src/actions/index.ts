@@ -1,4 +1,15 @@
 import {Color, IEdge, ITradingResources, IVertex} from '../types';
+import {
+IBuildRoadAction,
+IBuildTownAction,
+IDefaultAction,
+IDiscardResourcesAction,
+IDistributeResourcesAction,
+IInitialMoveAction,
+IOfferTradeAction,
+IPlayKnightAction,
+IThiefAction
+} from '../types/actions';
 
 /* ACTION TYPES */
 export const INITIALIZE_GAME = 'INITIALIZE_GAME';
@@ -23,29 +34,29 @@ export const DECLINE_TRADE = 'DECLINE_TRADE';
 export const BANK_TRADE = 'BANK_TRADE'; // needs to account for PORT_TRADE
 
 /* ACTION CREATORS */
-export const initializeGame = () => ({
+export const initializeGame = (): IDefaultAction => ({
     type: INITIALIZE_GAME
 });
 
-export const endPlayerTurn = () => ({
+export const endPlayerTurn = (): IDefaultAction => ({
     type: END_PLAYER_TURN
 });
 
-export const distributeResources = (dieRoll: number) => {
+export const distributeResources = (dieRoll: number): IDistributeResourcesAction => {
     return {
         dieRoll,
         type: DISTRIBUTE_RESOURCES
     }
 };
 
-export const discardHalfResources = (discardedResources: ITradingResources) => {
+export const discardHalfResources = (discardedResources: ITradingResources): IDiscardResourcesAction => {
     return {
         discardedResources,
         type: DISCARD_HALF_RESOURCES
     }
 };
 
-export const initialMove1 = (townVertex: number, roadEdge: IEdge) => {
+export const initialMove1 = (townVertex: number, roadEdge: IEdge): IInitialMoveAction => {
     return {
         roadEdge,
         townVertex,
@@ -53,7 +64,7 @@ export const initialMove1 = (townVertex: number, roadEdge: IEdge) => {
     }
 };
 
-export const initialMove2 = (townVertex: number, roadEdge: IEdge) => {
+export const initialMove2 = (townVertex: number, roadEdge: IEdge): IInitialMoveAction => {
     return {
         roadEdge,
         townVertex,
@@ -61,7 +72,7 @@ export const initialMove2 = (townVertex: number, roadEdge: IEdge) => {
     }
 };
 
-export const moveThief = (newHex: number, targetPlayer: Color) => {
+export const moveThief = (newHex: number, targetPlayer: Color): IThiefAction => {
     return {
         newHex,
         targetPlayer,
@@ -69,55 +80,56 @@ export const moveThief = (newHex: number, targetPlayer: Color) => {
     }
 };
 
-export const buildRoad = (targetEdge: IEdge) => {
+export const buildRoad = (targetEdge: IEdge): IBuildRoadAction => {
     return {
         targetEdge,
         type: BUILD_ROAD
     };
 };
 
-export const buildTown = (targetVtx: IVertex) => {
+export const buildTown = (targetVtx: IVertex): IBuildTownAction => {
     return {
         targetVtx,
         type: BUILD_TOWN
     };
 };
 
-export const upgradeTown = (targetVtx: IVertex) => {
+export const upgradeTown = (targetVtx: IVertex): IBuildTownAction => {
     return {
         targetVtx,
         type: UPGRADE_TOWN
     };
 };
 
-export const buildDevCard = () => ({
+export const buildDevCard = (): IDefaultAction => ({
     type: BUILD_DEVELOPMENT_CARD
 });
 
-export const playKnightCard = (targetPlayer: Color) => {
+export const playKnightCard = (targetPlayer: Color): IPlayKnightAction => {
     return {
         targetPlayer,
         type: PLAY_KNIGHT_CARD
     }
 };
 
-export const offerTrade = (targetPlayer: Color, myResources: ITradingResources, targetResources: ITradingResources) => {
+export const offerTrade = (targetPlayer: Color, myResources: ITradingResources, targetResources: ITradingResources): IOfferTradeAction => {
     return {
         myResources,
+        targetPlayer,
         targetResources,
         type: OFFER_TRADE
     };
 };
 
-export const acceptTrade = () => ({
+export const acceptTrade = (): IDefaultAction => ({
     type: ACCEPT_TRADE
 });
 
-export const declineTrade = () => ({
+export const declineTrade = (): IDefaultAction => ({
     type: DECLINE_TRADE
 });
 
-export const bankTrade = (myResources: ITradingResources, targetResources: ITradingResources) => {
+export const bankTrade = (myResources: ITradingResources, targetResources: ITradingResources): IOfferTradeAction => {
     return {
         myResources,
         targetResources,

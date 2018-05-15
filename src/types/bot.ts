@@ -1,16 +1,26 @@
-import { ICatanState, IEdge, IVertex } from ".";
+import { ICatanState, IEdge } from ".";
+import {
+    IBuildRoadAction,
+    IBuildTownAction,
+    IDefaultAction,
+    IDiscardResourcesAction,
+    IOfferTradeAction,
+    IPlayKnightAction,
+    IThiefAction
+} from '../types/actions';
 
-export interface IAction {
-    targetEdge? : IEdge;
-    targetVtx? : IVertex;
-    type: string;
-}
+export type IBotMakeTurnAction = IDefaultAction
+    | IBuildRoadAction
+    | IBuildTownAction
+    | IPlayKnightAction
+    | IOfferTradeAction;
 
 // any bot must implement this interface
 export interface ICatanBot {
-    // getOwnColor: () => Color;
     makeInitialMove1: (state: ICatanState) => {townVertex: number, roadEdge: IEdge};
     makeInitialMove2: (state: ICatanState) => {townVertex: number, roadEdge: IEdge};
-    makeTurn: (state: ICatanState) => IAction;
-    acceptOrDeclineTrade: (state: ICatanState, trade: any) => IAction;
+    makeTurn: (state: ICatanState) => IBotMakeTurnAction;
+    acceptOrDeclineTrade: (state: ICatanState, trade: any) => IDefaultAction;
+    discardResources?: (state: ICatanState) => IDiscardResourcesAction;
+    moveThief?: (state: ICatanState) => IThiefAction;
 }

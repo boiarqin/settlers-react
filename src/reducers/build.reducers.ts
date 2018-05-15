@@ -19,6 +19,7 @@ export const buildRoad = (state: ICatanState, action: any) => {
         
         return {
             ...state,
+            eventList: [...state.eventList, currentColor + ' built a road'],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
@@ -51,6 +52,7 @@ export const buildTown = (state: ICatanState, action: any) => {
         
         return {
             ...state,
+            eventList: [...state.eventList, currentColor + ' built a town'],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
@@ -76,6 +78,7 @@ export const upgradeTown = (state: ICatanState, action: any) => {
         
         return {
             ...state,
+            eventList: [...state.eventList, currentColor + ' upgraded a town to a city'],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources

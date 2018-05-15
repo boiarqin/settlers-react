@@ -7,6 +7,7 @@ import Scores from './components/scores/scores';
 import './App.css';
 
 import {
+  BANK_TRADE,
   BUILD_DEVELOPMENT_CARD,
   BUILD_ROAD,
   BUILD_TOWN,
@@ -21,7 +22,8 @@ import {
 } from './actions';
 import { createBasicBot } from './bots/basic.bot';
 import { ICatanState, IEdge } from './types';
-import { IAction, ICatanBot } from './types/bot';
+import { IDefaultAction } from './types/actions';
+import { IBotMakeTurnAction, ICatanBot } from './types/bot';
 import { playerHasWon } from './utils/scoring';
 import {
   getCurrentPlayerColor,
@@ -29,6 +31,7 @@ import {
 } from './utils/utils';
 
 interface IAppProps {
+  dispatchBotMove: (botAction: IBotMakeTurnAction) => any,
   dispatchBuildRoad: (targetEdge: IEdge) => any,
   dispatchBuildTown: (targetVtx: number) => any,
   dispatchDistributeResources: (dieRoll: number) => any;
@@ -54,6 +57,7 @@ const mapStateToProps = (state: ICatanState, ownProps: IAppProps) => ({
 
 
 const mapDispatchToProps = (dispatch: any, ownProps:any) => ({
+  dispatchBotMove: (botAction: IBotMakeTurnAction) => dispatch(botAction),
   dispatchBuildRoad: (targetEdge: IEdge) => dispatch(buildRoad(targetEdge)),
   dispatchBuildTown: (targetVtx: number) => dispatch(buildTown(targetVtx)),
   dispatchDistributeResources: (dieRoll: number) => dispatch(distributeResources(dieRoll)),
@@ -129,7 +133,7 @@ class App extends React.Component<IAppProps, IAppState> {
         */
       }
       // get actions from user until user ends turn
-      let nextAction : IAction = { type: 'TBD' };
+      let nextAction : IBotMakeTurnAction = { type: 'TBD' } as IDefaultAction;
       while(nextAction.type !== 'END_PLAYER_TURN'){
         nextAction = currentPlayer.makeTurn(this.props.gameState);
         // tslint:disable  
@@ -138,18 +142,10 @@ class App extends React.Component<IAppProps, IAppState> {
         // double check action types
         switch(nextAction.type) {
           case BUILD_ROAD:
-            // tslint:disable  
-            console.log('build road')
-            // tslint:enable  
-
-            if (nextAction.targetEdge){
-              this.props.dispatchBuildRoad(nextAction.targetEdge);
-            }
           case BUILD_TOWN:
-            if (nextAction.targetVtx){
-              this.props.dispatchBuildTown(nextAction.targetVtx);
-            }
           case UPGRADE_TOWN:
+          case BANK_TRADE:
+            this.props.dispatchBotMove(nextAction);
           case BUILD_DEVELOPMENT_CARD:
           case END_PLAYER_TURN:
           default:
