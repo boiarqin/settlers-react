@@ -87,6 +87,6 @@ export const getValidTownLocations = (state: ICatanState, color: Color) : IVerte
 // return true if this is a valid town for upgrading to city
 export const isValidCityLocation = (state: ICatanState, playerColor: Color, cityVertex: number) : boolean => {
     // there must be a town here of the same color
-    const hasExistingTown = typeof state.towns.find(t => t.vertex === cityVertex && t.color === playerColor) !== 'undefined';
+    const hasExistingTown = typeof state.towns.find(t => t.vertex === cityVertex && !t.isCity && t.color === playerColor) !== 'undefined';
     return hasExistingTown;
 };
