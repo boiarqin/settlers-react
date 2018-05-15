@@ -96,6 +96,13 @@ export const createBasicBot = (color: Color): ICatanBot => {
                 || resources.sheep >= 5
                 || resources.wheat >= 5    
             );
+            const hasLT5ofResource = (
+                resources.bricks < 5
+                || resources.lumber < 5
+                || resources.ore < 5
+                || resources.sheep < 5
+                || resources.wheat < 5    
+            );
 
             // if there are enough resources, upgrade a town to a city
             if (canAffordCity && validCities.length > 0) {
@@ -119,7 +126,7 @@ export const createBasicBot = (color: Color): ICatanBot => {
                     type: 'BUILD_ROAD'
                 };
             // if there is too many of 1 type of resource, make a bank trade
-            } else if (hasGT5ofResource) {
+            } else if (hasGT5ofResource && hasLT5ofResource) {
                 // TODO: is it possible for maxResource === minResource?
                 const maxResource = Object.entries(resources).filter(r => r[1] >= 5)[0][0];
                 const minResource = Object.entries(resources).reduce((accm, r) => {
