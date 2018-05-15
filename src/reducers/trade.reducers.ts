@@ -40,7 +40,8 @@ export const bankTrade = (state: ICatanState, action: any) => {
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
-            }
+            },
+            turnSubAction: state.turnSubAction + 1
         };
     } else {
         return state;

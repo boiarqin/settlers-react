@@ -28,14 +28,16 @@ export const initializeState = () => {
         thiefHex: hexList.findIndex(hex => hex.terrain === 'desert'),
         totalVertices: numVertices,
         towns: [],
-        turn: 0
+        turn: 0,
+        turnSubAction: 0
     };
 };
 
 export const endPlayerTurn = (state: ICatanState, action: any) => {
     return {
         ...state,
-        turn: state.turn + 1
+        turn: state.turn + 1,
+        turnSubAction: 0
     };
 };
 
@@ -133,7 +135,8 @@ export const distributeResources = (state: ICatanState, action: any) => {
     return {
         ...state,
         eventList: [...state.eventList, 'Distribute resources from die roll ' + dieRoll],
-        playerResources: currentResources
+        playerResources: currentResources,
+        turnSubAction: state.turnSubAction + 1
     };
 };
 
@@ -162,7 +165,8 @@ export const moveThief = (state: ICatanState, action: any) => {
     return {
         ...state,
         playerResources: currentResources,
-        thiefHex: action.newHex
+        thiefHex: action.newHex,
+        turnSubAction: state.turnSubAction + 1
     };
 };
 

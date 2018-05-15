@@ -24,7 +24,8 @@ export const buildRoad = (state: ICatanState, action: any) => {
                 ...state.playerResources,
                 [currentColor] : updatedResources
             },
-            roads: [...state.roads, newRoad]
+            roads: [...state.roads, newRoad],
+            turnSubAction: state.turnSubAction + 1
         };
     } else {
         return state;
@@ -57,7 +58,8 @@ export const buildTown = (state: ICatanState, action: any) => {
                 ...state.playerResources,
                 [currentColor] : updatedResources
             },
-            towns: [...state.towns, newTown]
+            towns: [...state.towns, newTown],
+            turnSubAction: state.turnSubAction + 1
         };
     } else {
         return state;
@@ -67,7 +69,10 @@ export const buildTown = (state: ICatanState, action: any) => {
 export const upgradeTown = (state: ICatanState, action: any) => {
     const currentColor = getCurrentPlayerColor(state);
     const currentResources = state.playerResources[currentColor];
-
+    // tslint:disable
+    console.log(canAfford(currentResources, cityCost), isValidCityLocation(state, currentColor, action.targetVtx));
+    console.log(currentColor, action.targetVtx);
+    // tslint:enable
     if (canAfford(currentResources, cityCost) && isValidCityLocation(state, currentColor, action.targetVtx)){
         const targetTown = state.towns.find(town => town.color === currentColor && town.vertex === action.targetVtx);
         if (targetTown) {
@@ -83,7 +88,8 @@ export const upgradeTown = (state: ICatanState, action: any) => {
                 ...state.playerResources,
                 [currentColor] : updatedResources
             },
-            towns: [...state.towns]
+            towns: [...state.towns],
+            turnSubAction: state.turnSubAction + 1
         };
     } else {
         return state;
@@ -109,7 +115,8 @@ export const buildDevCard = (state: ICatanState, action: any) => {
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
-            }
+            },
+            turnSubAction: state.turnSubAction + 1
         };
     } else {
         return state;

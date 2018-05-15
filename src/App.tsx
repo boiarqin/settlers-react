@@ -22,7 +22,6 @@ import {
 } from './actions';
 import { createBasicBot } from './bots/basic.bot';
 import { ICatanState, IEdge } from './types';
-import { IDefaultAction } from './types/actions';
 import { IBotMakeTurnAction, ICatanBot } from './types/bot';
 import { playerHasWon } from './utils/scoring';
 import {
@@ -82,6 +81,7 @@ class App extends React.Component<IAppProps, IAppState> {
   }
 
   public componentDidMount() {
+    // TODO: change to timeout after dispatches
     this.timerID = setInterval(()=> this.tick(), 5000);
   }
 
@@ -95,6 +95,7 @@ class App extends React.Component<IAppProps, IAppState> {
     /* tslint:enable */ 
     
     const turn = this.props.gameState.turn;
+    const turnSubAction = this.props.gameState.turnSubAction;
     const numPlayers = this.props.gameState.playerColors.length;
     const currentColor = getCurrentPlayerColor(this.props.gameState);
     const currentPlayer = this.state.players[currentColor];
@@ -113,8 +114,8 @@ class App extends React.Component<IAppProps, IAppState> {
       const {townVertex, roadEdge} = currentPlayer.makeInitialMove2(this.props.gameState);
       this.props.dispatchInitialMove2(townVertex, roadEdge);
       this.props.dispatchEndPlayerTurn();
-    } else {
-      // NORMAL TURN
+    } else if (turnSubAction === 0) {
+      // NORMAL TURN - DISTRIBUTE RESOURCES
       // roll dice
       const dieRoll = rollADie() + rollADie();
       // tslint:disable  
@@ -132,28 +133,25 @@ class App extends React.Component<IAppProps, IAppState> {
         dispatch(moveThief({})); 
         */
       }
+    } else {
+      // NORMAL TURN - PLAYER ACTIONS
       // get actions from user until user ends turn
-      let nextAction : IBotMakeTurnAction = { type: 'TBD' } as IDefaultAction;
-      while(nextAction.type !== 'END_PLAYER_TURN'){
-        nextAction = currentPlayer.makeTurn(this.props.gameState);
-        // tslint:disable  
-        console.log(nextAction)
-        // tslint:enable  
-        // double check action types
-        switch(nextAction.type) {
-          case BUILD_ROAD:
-          case BUILD_TOWN:
-          case UPGRADE_TOWN:
-          case BANK_TRADE:
-            this.props.dispatchBotMove(nextAction);
-          case BUILD_DEVELOPMENT_CARD:
-          case END_PLAYER_TURN:
-          default:
-            this.props.dispatchEndPlayerTurn();
-        }
+      const nextAction = currentPlayer.makeTurn(this.props.gameState);
+      // tslint:disable  
+      console.log(nextAction)
+      // tslint:enable  
+      // double check action types
+      switch(nextAction.type) {
+        case BUILD_ROAD:
+        case BUILD_TOWN:
+        case UPGRADE_TOWN:
+        case BANK_TRADE:
+          this.props.dispatchBotMove(nextAction);
+        case BUILD_DEVELOPMENT_CARD:
+        case END_PLAYER_TURN:
+        default:
+          this.props.dispatchEndPlayerTurn();
       }
-      // this.props.dispatchMakeTurn(dieRoll);
-      // this.props.dispatchEndPlayerTurn();
     } 
   }
 

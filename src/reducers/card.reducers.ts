@@ -19,6 +19,7 @@ export const playKnightCard = (state: ICatanState, action: any) => {
     
     return {
         ...state,
-        cards: [...state.cards]
+        cards: [...state.cards],
+        turnSubAction: state.turnSubAction + 1
     };
 };
