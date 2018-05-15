@@ -18,6 +18,7 @@ import {
   endPlayerTurn,
   initialMove1,
   initialMove2,
+  setPlayerNames,
   UPGRADE_TOWN
 } from './actions';
 import { createBasicBot } from './bots/basic.bot';
@@ -37,6 +38,7 @@ interface IAppProps {
   dispatchEndPlayerTurn: () => any,
   dispatchInitialMove1: (townVertex: number, roadEdge: IEdge) => any;
   dispatchInitialMove2: (townVertex: number, roadEdge: IEdge) => any;
+  dispatchPlayerNames: (playerNames: any) => any;
   gameState: ICatanState;
 }
 
@@ -62,7 +64,8 @@ const mapDispatchToProps = (dispatch: any, ownProps:any) => ({
   dispatchDistributeResources: (dieRoll: number) => dispatch(distributeResources(dieRoll)),
   dispatchEndPlayerTurn: () => dispatch(endPlayerTurn()),
   dispatchInitialMove1: (townVertex: number, roadEdge: IEdge) => dispatch(initialMove1(townVertex, roadEdge)),
-  dispatchInitialMove2: (townVertex: number, roadEdge: IEdge) => dispatch(initialMove2(townVertex, roadEdge))
+  dispatchInitialMove2: (townVertex: number, roadEdge: IEdge) => dispatch(initialMove2(townVertex, roadEdge)),
+  dispatchPlayerNames: (playerNames: any) => dispatch(setPlayerNames(playerNames))
 });
 
 class App extends React.Component<IAppProps, IAppState> {
@@ -78,6 +81,12 @@ class App extends React.Component<IAppProps, IAppState> {
         red: createBasicBot('red')
       }
     }
+    this.props.dispatchPlayerNames({
+        blue: this.state.players.blue.getBotName(),
+        green: this.state.players.green.getBotName(),
+        orange: this.state.players.orange.getBotName(),
+        red: this.state.players.red.getBotName()
+    });
   }
 
   public componentDidMount() {

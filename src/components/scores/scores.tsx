@@ -30,7 +30,7 @@ function SingleScore(props: ISingleScoresProps) {
 
     return (
         <div className="single-score">
-            <h3>Player Name ({props.score.playerColor})</h3>
+            <h3>{props.score.playerColor} ({props.score.playerName})</h3>
             <span>{totalVP} Victory Points</span>
             <h4>Resources</h4>
             <ul>

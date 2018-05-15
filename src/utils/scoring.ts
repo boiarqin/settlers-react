@@ -13,7 +13,8 @@ export function getPlayerScores(state: ICatanState) : IPlayerScore[]{
     return state.playerColors.map(color => getSinglePlayerScore(state, color))
 }
 
-function getSinglePlayerScore(state: ICatanState, color: Color): IPlayerScore{
+function getSinglePlayerScore(state: ICatanState, color: Color): IPlayerScore {
+    const playerName = state.playerNames[color as string];
     const {bricks, wheat, ore, sheep, lumber} = state.playerResources[color as string];
     const roads = state.roads.filter(road => road.color === color);
     const towns = state.towns.filter(town => town.color === color);
@@ -29,6 +30,7 @@ function getSinglePlayerScore(state: ICatanState, color: Color): IPlayerScore{
         lumber,
         ore,
         playerColor: color,
+        playerName,
         roads,
         sheep,
         towns,

@@ -71,6 +71,9 @@ export interface ICatanState {
     playerResources: {
         [K in Color]: IPlayerResources
     };
+    playerNames: {
+        [K in Color]: string
+    };
     playerWithLargestArmy: Color | null;
     playerWithLongestRoad: Color | null;
     turn: number;
@@ -78,7 +81,7 @@ export interface ICatanState {
 };
 
 export interface IPlayerScore extends IPlayerResources {
-    playerName?: string;
+    playerName: string;
     /* playerColor: Color;
     bricks: number;
     wheat: number;

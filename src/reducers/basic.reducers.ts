@@ -14,6 +14,11 @@ export const initializeState = () => {
             } as IPlayerResources);
             return accm;
         }, {} as {[K in Color]: IPlayerResources}); // hacky
+    const playerNames =
+        playerColors.reduce((accm, color) => {
+            accm[color] = '';
+            return accm;
+        }, {} as {[K in Color]: string}); // hacky
     return {
         allEdges: edgeList,
         allHexagons: hexList,
@@ -21,6 +26,7 @@ export const initializeState = () => {
         eventList: ['Initialized game'],
         hexAdjacentVertices,
         playerColors,
+        playerNames,
         playerResources,
         playerWithLargestArmy: null,
         playerWithLongestRoad: null,
@@ -30,6 +36,13 @@ export const initializeState = () => {
         towns: [],
         turn: 0,
         turnSubAction: 0
+    };
+};
+
+export const setPlayerNames = (state: ICatanState, action: any) => {
+    return {
+        ...state,
+        playerNames: action.playerNames
     };
 };
 

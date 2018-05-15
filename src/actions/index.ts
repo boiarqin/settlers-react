@@ -13,6 +13,7 @@ IThiefAction
 
 /* ACTION TYPES */
 export const INITIALIZE_GAME = 'INITIALIZE_GAME';
+export const SET_PLAYER_NAMES = 'SET_PLAYER_NAMES';
 export const END_PLAYER_TURN = 'END_PLAYER_TURN';
 export const DISTRIBUTE_RESOURCES = 'DISTRIBUTE_RESOURCES';
 export const INITIAL_MOVE_1 = 'INITIAL_MOVE_1';
@@ -36,6 +37,11 @@ export const BANK_TRADE = 'BANK_TRADE'; // needs to account for PORT_TRADE
 /* ACTION CREATORS */
 export const initializeGame = (): IDefaultAction => ({
     type: INITIALIZE_GAME
+});
+
+export const setPlayerNames = (playerNames: any) => ({
+    playerNames,
+    type: SET_PLAYER_NAMES
 });
 
 export const endPlayerTurn = (): IDefaultAction => ({

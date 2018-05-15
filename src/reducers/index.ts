@@ -15,6 +15,7 @@ import {
     MOVE_THIEF,
     OFFER_TRADE,
     PLAY_KNIGHT_CARD,
+    SET_PLAYER_NAMES,
     UPGRADE_TOWN,
 } from '../actions';
 import {ICatanState} from '../types';
@@ -26,7 +27,8 @@ import {
     initializeState,
     initialMove1,
     initialMove2,
-    moveThief
+    moveThief,
+    setPlayerNames
 } from './basic.reducers';
 import {
     buildDevCard,
@@ -48,6 +50,8 @@ const catanReducer = (state: ICatanState = initialState, action: any) => {
     switch(action.type) {
         case INITIALIZE_GAME:
             return initialState;
+        case SET_PLAYER_NAMES:
+            return setPlayerNames(state, action);
         case END_PLAYER_TURN:
             return endPlayerTurn(state, action);
         case INITIAL_MOVE_1:

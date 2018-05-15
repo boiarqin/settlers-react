@@ -17,6 +17,8 @@ import { canAfford, getValidRoadLocations, getValidTownLocations } from '../util
 */
 
 export const createBasicBot = (color: Color): ICatanBot => {
+    const savedRandomNum = random(1000);
+
     const getOwnColor = () => {
         return color;
     };
@@ -74,9 +76,9 @@ export const createBasicBot = (color: Color): ICatanBot => {
                 type: 'sdfdsf'
             };
         }, 
-        /* getOwnColor: () => {
-            return color;
-        }, */
+        getBotName: () => {
+            return 'Basic Bot ' + savedRandomNum;
+        },
         makeInitialMove1: basicInitialMove,
         makeInitialMove2: basicInitialMove,
         makeTurn: (state: ICatanState) => {
@@ -99,7 +101,7 @@ export const createBasicBot = (color: Color): ICatanBot => {
             if (canAffordCity && validCities.length > 0) {
                 const randomCityIdx = random(validCities.length);
                 return {
-                    targetVtx: validCities[randomCityIdx],
+                    targetVtx: validCities[randomCityIdx].vertex,
                     type: 'UPGRADE_TOWN'
                 };
             // if there are enough resources, build a town
@@ -118,6 +120,7 @@ export const createBasicBot = (color: Color): ICatanBot => {
                 };
             // if there is too many of 1 type of resource, make a bank trade
             } else if (hasGT5ofResource) {
+                // TODO: is it possible for maxResource === minResource?
                 const maxResource = Object.entries(resources).filter(r => r[1] >= 5)[0][0];
                 const minResource = Object.entries(resources).reduce((accm, r) => {
                     if (accm[1] <= r[1]) {
