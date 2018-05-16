@@ -1,5 +1,5 @@
 import {ICatanState} from '../types';
-import { getCurrentPlayerColor, modifyPlayerResources } from '../utils/utils';
+import { getCurrentPlayerColor, modifyPlayerResources, newEvent } from '../utils/utils';
 import { canAfford } from '../utils/verification';
 
 export const offerTrade = (state: ICatanState, action: any) => {
@@ -36,7 +36,7 @@ export const bankTrade = (state: ICatanState, action: any) => {
         });
         return {
             ...state,
-            eventList: [...state.eventList, currentColor + ' made a bank trade'],
+            eventList: [...state.eventList, newEvent(action.type, currentColor, 'made a bank trade')],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources

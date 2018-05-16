@@ -1,17 +1,35 @@
 .narrative {
+    display: flex;
+    flex-flow: row wrap;
     font-size: 10px;
     text-align: left;
 
+    .narrative-event::first-letter {
+        text-transform: capitalize;
+    }
     .red {
-        color: darkred;
+        color: red;
     }
     .orange {
         color: darkorange;
     }
     .green {
-        color: darkgreen;
+        color: green;
     }
     .blue {
-        color: darkblue;
+        color: blue;
+    }
+}
+
+.show-options, .verbosity-options {
+    width: 50%;
+}
+
+.narrative-option {
+    padding: 0 5px;
+    color: hotpink;
+    cursor: pointer;
+    &.selected, &:hover {
+        text-decoration: underline;
     }
 }

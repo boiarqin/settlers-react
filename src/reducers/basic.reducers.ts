@@ -1,6 +1,7 @@
+import { INITIALIZE_GAME } from '../actions';
 import {cardList, edgeList, hexAdjacentVertices, hexList, numVertices, playerColors} from '../constants';
 import {Color, ICatanState, IPlayerResources, IRoad, ITown} from '../types';
-import { convertTerrainToResource, getCurrentPlayerColor } from '../utils/utils';
+import { convertTerrainToResource, getCurrentPlayerColor, newEvent } from '../utils/utils';
 
 export const initializeState = () => {
     const playerResources =
@@ -23,7 +24,7 @@ export const initializeState = () => {
         allEdges: edgeList,
         allHexagons: hexList,
         cards: cardList,
-        eventList: ['Initialized game'],
+        eventList: [newEvent(INITIALIZE_GAME, null, 'Initialize game')],
         hexAdjacentVertices,
         playerColors,
         playerNames,
@@ -47,8 +48,14 @@ export const setPlayerNames = (state: ICatanState, action: any) => {
 };
 
 export const endPlayerTurn = (state: ICatanState, action: any) => {
+    const currentColor = getCurrentPlayerColor(state);
+    let event = newEvent(action.type, currentColor, 'ends turn');
+    if (state.turnSubAction === 1) {
+        event = newEvent(action.type, currentColor, 'passes');
+    }
     return {
         ...state,
+        eventList: [...state.eventList, event],
         turn: state.turn + 1,
         turnSubAction: 0
     };
@@ -70,7 +77,7 @@ export const initialMove1 = (state: ICatanState, action: any) => {
     };
     return {
         ...state,
-        eventList: [...state.eventList, currentColor + ' makes initial move 1'],
+        eventList: [...state.eventList, newEvent(action.type, currentColor, 'makes initial move 1')],
         roads: [...state.roads, newRoad],
         towns: [...state.towns, newTown],
     };
@@ -108,7 +115,7 @@ export const initialMove2 = (state: ICatanState, action: any) => {
 
     return {
         ...state,
-        eventList: [...state.eventList, currentColor + ' makes initial move 2'],
+        eventList: [...state.eventList, newEvent(action.type, currentColor, 'makes initial move 2')],
         playerResources: {
             ...state.playerResources,
             [currentColor] : currentResources
@@ -147,7 +154,7 @@ export const distributeResources = (state: ICatanState, action: any) => {
 
     return {
         ...state,
-        eventList: [...state.eventList, 'Distribute resources from die roll ' + dieRoll],
+        eventList: [...state.eventList, newEvent(action.type, null, 'Distribute resources from die roll ' + dieRoll)],
         playerResources: currentResources,
         turnSubAction: state.turnSubAction + 1
     };
@@ -177,6 +184,7 @@ export const moveThief = (state: ICatanState, action: any) => {
 
     return {
         ...state,
+        eventList: [...state.eventList, newEvent(action.type, currentColor, 'moves thief')],
         playerResources: currentResources,
         thiefHex: action.newHex,
         turnSubAction: state.turnSubAction + 1

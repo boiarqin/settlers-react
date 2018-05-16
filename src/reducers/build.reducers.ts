@@ -1,6 +1,6 @@
 import { cityCost, devCardCost, roadCost, townCost } from '../constants';
 import { ICatanState, IRoad, ITown } from '../types';
-import { getCurrentPlayerColor, modifyPlayerResources } from '../utils/utils';
+import { getCurrentPlayerColor, modifyPlayerResources, newEvent } from '../utils/utils';
 import { canAfford, isValidCityLocation, isValidRoadLocation, isValidTownLocation } from '../utils/verification';
 
 export const buildRoad = (state: ICatanState, action: any) => {
@@ -19,7 +19,7 @@ export const buildRoad = (state: ICatanState, action: any) => {
         
         return {
             ...state,
-            eventList: [...state.eventList, currentColor + ' built a road'],
+            eventList: [...state.eventList, newEvent(action.type, currentColor, 'built a road', 'at edge [' + action.targetEdge.toString() + ']')],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
@@ -53,7 +53,7 @@ export const buildTown = (state: ICatanState, action: any) => {
         
         return {
             ...state,
-            eventList: [...state.eventList, currentColor + ' built a town'],
+            eventList: [...state.eventList, newEvent(action.type, currentColor, 'built a town', 'at vertex ' + action.targetVtx)],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
@@ -83,7 +83,7 @@ export const upgradeTown = (state: ICatanState, action: any) => {
         
         return {
             ...state,
-            eventList: [...state.eventList, currentColor + ' upgraded a town to a city'],
+            eventList: [...state.eventList, newEvent(action.type, currentColor, 'upgraded a town to a city', 'at vertex ' + action.targetVtx)],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources
@@ -112,6 +112,7 @@ export const buildDevCard = (state: ICatanState, action: any) => {
         return {
             ...state,
             cards: [...state.cards],
+            eventList: [...state.eventList, newEvent(action.type, currentColor, 'built a dev card')],
             playerResources: {
                 ...state.playerResources,
                 [currentColor] : updatedResources

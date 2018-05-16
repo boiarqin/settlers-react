@@ -6,5 +6,8 @@
       "node_modules/**/*.ts",
       "src/**/*.js"
     ]
+  },
+  "rules": {
+    "jsx-no-lambda": false
   }
 }

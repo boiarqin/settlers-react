@@ -61,7 +61,7 @@ export interface ICatanState {
 
     thiefHex: number;
 
-    eventList: string[],
+    eventList: IEvent[],
     
     towns: ITown[];
     roads: IRoad[];
@@ -94,3 +94,11 @@ export interface IPlayerScore extends IPlayerResources {
     hasLargestArmy: boolean;
     hasLongestRoad: boolean;
 };
+
+// [verbosity level, player color | null, text, additional text]
+// [1, null, "Initialize game", null]
+// [1, null, "Game over", null]
+// [1, 'green', "built road", "at [0, 1]"]
+// [1, 'blue', "moved the thief", "and stole from"]
+// [3, null, "Distribute resources from die roll 5", ""]
+export type IEvent = [number, Color | null, string, string | null];
