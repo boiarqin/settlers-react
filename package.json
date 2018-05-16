@@ -2,6 +2,7 @@
   "name": "settlers",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://boiarqin.github.io/settlers-react",
   "dependencies": {
     "@types/react": "^16.3.12",
     "@types/react-dom": "^16.0.5",
